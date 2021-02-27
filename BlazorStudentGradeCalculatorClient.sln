@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorStudentGradeCalculatorClient.Server", "BlazorStudentGradeCalculatorClient\Server\BlazorStudentGradeCalculatorClient.Server.csproj", "{44DE9A82-30B0-4CC4-BC4B-490AD36BB55B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorStudentGradeCalculatorClient.Client", "BlazorStudentGradeCalculatorClient\Client\BlazorStudentGradeCalculatorClient.Client.csproj", "{EA93143B-FADC-4CAD-9889-BCA51773B541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorStudentGradeCalculatorClient.Shared", "BlazorStudentGradeCalculatorClient\Shared\BlazorStudentGradeCalculatorClient.Shared.csproj", "{9A784CFA-5CCD-42E2-A23B-0DFEBC43C44A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44DE9A82-30B0-4CC4-BC4B-490AD36BB55B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44DE9A82-30B0-4CC4-BC4B-490AD36BB55B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44DE9A82-30B0-4CC4-BC4B-490AD36BB55B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44DE9A82-30B0-4CC4-BC4B-490AD36BB55B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA93143B-FADC-4CAD-9889-BCA51773B541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA93143B-FADC-4CAD-9889-BCA51773B541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA93143B-FADC-4CAD-9889-BCA51773B541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA93143B-FADC-4CAD-9889-BCA51773B541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A784CFA-5CCD-42E2-A23B-0DFEBC43C44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A784CFA-5CCD-42E2-A23B-0DFEBC43C44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A784CFA-5CCD-42E2-A23B-0DFEBC43C44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A784CFA-5CCD-42E2-A23B-0DFEBC43C44A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {920B17D3-9FCC-4633-8431-D0A52ABC71D1}
+	EndGlobalSection
+EndGlobal
