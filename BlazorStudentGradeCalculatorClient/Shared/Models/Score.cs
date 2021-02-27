@@ -10,9 +10,9 @@ namespace BlazorStudentGradeCalculatorClient.Shared.Models
     {
         public int ScoreID { get; set; }
         public string SchoolIdNumber { get; set; }
-        public string SCoreName { get; set; }
-        public double ScoreGrade { get; set; }
-        public string ScoreInLetter { get; set; }
+        public string SubjectName { get; set; }
+        public double SubjectScore { get; set; }
+        public string SubjectScoreInLetter { get; set; }
 
         public int MidTermScoreID { get; set; }
         public MidTerm MidTerm { get; set; }
