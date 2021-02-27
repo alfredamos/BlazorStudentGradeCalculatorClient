@@ -56,12 +56,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
         public async Task<Examm> GetById(int id)
         {
-            return await _context.Examms.Include(ex => ex.Score).FirstOrDefaultAsync(ex => ex.ExammsID == id);
+            return await _context.Examms.Include(ex => ex.Score).FirstOrDefaultAsync(ex => ex.ExammID == id);
         }
 
         public async Task<Examm> UpdateEntity(Examm updatedEntity)
         {
-            var result = await _context.Examms.FirstOrDefaultAsync(ex => ex.ExammsID == updatedEntity.ExammsID);
+            var result = await _context.Examms.FirstOrDefaultAsync(ex => ex.ExammID == updatedEntity.ExammID);
 
             _mapper.Map(updatedEntity, result);
 

@@ -1,5 +1,8 @@
+using BlazorStudentGradeCalculatorClient.Server.Contracts;
 using BlazorStudentGradeCalculatorClient.Server.Data;
+using BlazorStudentGradeCalculatorClient.Server.Mappings;
 using BlazorStudentGradeCalculatorClient.Server.Models;
+using BlazorStudentGradeCalculatorClient.Server.SQLFiles;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +29,12 @@ namespace BlazorStudentGradeCalculatorClient.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(xx => xx.AddPolicy("CorsPolicy", builder =>
+                builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+            ));
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -41,8 +50,18 @@ namespace BlazorStudentGradeCalculatorClient.Server
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
             services.AddRazorPages();
+
+            services.AddScoped<IExammRepository, SQLExammRepository>();
+            services.AddScoped<IHomeWorkRepository, SQLHomeWorkRepository>();
+            services.AddScoped<IMidTermRepository, SQLMidTermRepository>();
+            services.AddScoped<IStudentRepository, SQLStudentRepository>();
+
+            services.AddAutoMapper(typeof(Maps));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +79,8 @@ namespace BlazorStudentGradeCalculatorClient.Server
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();

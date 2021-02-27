@@ -8,7 +8,7 @@ namespace BlazorStudentGradeCalculatorClient.Shared.Models
 {
     public class Examm
     {
-        public int ExammsID { get; set; }
+        public int ExammID { get; set; }
         public string SchoolIdNumber { get; set; }
         public string StudentName { get; set; }
        
