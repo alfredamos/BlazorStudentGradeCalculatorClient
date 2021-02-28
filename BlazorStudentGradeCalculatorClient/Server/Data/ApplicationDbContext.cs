@@ -31,6 +31,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data
 
         public DbSet<Examm> Examms { get; set; }
         public DbSet<HomeWork> HomeWorks { get; set; }
+        public DbSet<HWScore> HWScores { get; set; }
         public DbSet<MidTerm> MidTerms { get; set; }
         public DbSet<Score> Scores { get; set; }
         public DbSet<Student> Students { get; set; }

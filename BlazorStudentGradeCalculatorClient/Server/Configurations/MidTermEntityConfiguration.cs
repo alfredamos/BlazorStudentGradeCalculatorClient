@@ -13,8 +13,8 @@ namespace BlazorStudentGradeCalculatorClient.Server.Configurations
         public void Configure(EntityTypeBuilder<MidTerm> builder)
         {
             builder.HasOne(x => x.Student)
-            .WithOne(x => x.MidTerm)
-            .HasForeignKey<MidTerm>(x => x.StudentMidTermID);
+            .WithMany(x => x.MidTerms)
+            .HasForeignKey(x => x.StudentMidTermID);
         }
     }
 }

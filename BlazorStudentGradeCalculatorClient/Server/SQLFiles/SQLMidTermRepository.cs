@@ -48,15 +48,15 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
                 return await _context.MidTerms.ToListAsync();
             }
 
-            return await _context.MidTerms.Include(ex => ex.Score).Where(ex =>
+            return await _context.MidTerms.Where(ex =>
                          ex.SchoolIdNumber.Contains(searchKey) || ex.StudentName.Contains(searchKey) ||
-                         ex.Score.SubjectName.Contains(searchKey) || ex.Score.SubjectScoreInLetter.Contains(searchKey)
+                         ex.SubjectName.Contains(searchKey) || ex.SubjectScoreInLetter.Contains(searchKey)
                          ).ToListAsync();
         }
 
         public async Task<MidTerm> GetById(int id)
         {
-            return await _context.MidTerms.Include(ex => ex.Score).FirstOrDefaultAsync(ex => ex.MidTermID == id);
+            return await _context.MidTerms.FirstOrDefaultAsync(ex => ex.MidTermID == id);
         }
 
         public async Task<MidTerm> UpdateEntity(MidTerm updatedEntity)
@@ -64,8 +64,6 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             var result = await _context.MidTerms.FirstOrDefaultAsync(ex => ex.MidTermID == updatedEntity.MidTermID);
 
             _mapper.Map(updatedEntity, result);
-
-            result.Score = updatedEntity.Score;
 
             await _context.SaveChangesAsync();
 

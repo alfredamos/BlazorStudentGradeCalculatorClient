@@ -8,21 +8,15 @@ using System.Threading.Tasks;
 
 namespace BlazorStudentGradeCalculatorClient.Server.Configurations
 {
-    public class ScoreEntityConfiguration : IEntityTypeConfiguration<Score>
+    public class ScoreEntityConfiguration : IEntityTypeConfiguration<HWScore>
     {
-        public void Configure(EntityTypeBuilder<Score> builder)
+        public void Configure(EntityTypeBuilder<HWScore> builder)
         {
-            builder.HasOne(x => x.Examm)
-            .WithOne(x => x.Score)
-            .HasForeignKey<Score>(x => x.ExammsScoreID);
-
+           
             builder.HasOne(x => x.HomeWork)
             .WithMany(x => x.Scores)
             .HasForeignKey(x => x.HomeWorkScoreID);
-
-            builder.HasOne(x => x.MidTerm)
-            .WithOne(x => x.Score)
-            .HasForeignKey<Score>(x => x.MidTermScoreID);
+         
         }
     }
 }

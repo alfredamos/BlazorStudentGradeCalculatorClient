@@ -17,7 +17,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.HomeWorks
     {
         private readonly IHomeWorkRepository _homeWorkRepository;
 
-        public HomeWorkController(IHomeWorkRepository homeWorkRepository)
+        public HomeWorkController(IHomeWorkRepository homeWorkRepository) 
         {
             _homeWorkRepository = homeWorkRepository;
         }
