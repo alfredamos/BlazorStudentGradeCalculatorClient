@@ -4,16 +4,14 @@ using BlazorStudentGradeCalculatorClient.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
+namespace BlazorStudentGradeCalculatorClient.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210228211435_addHWScoreAndMakeOtherEntitiesToInheritFromScore")]
-    partial class addHWScoreAndMakeOtherEntitiesToInheritFromScore
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,6 +84,29 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Examm", b =>
+                {
+                    b.Property<int>("ExammID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SchoolIdNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ExammID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("Examms");
+                });
+
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HWScore", b =>
                 {
                     b.Property<int>("HWScoreID")
@@ -93,14 +114,8 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HomeWorkScoreID")
+                    b.Property<int>("HomeWorkID")
                         .HasColumnType("int");
-
-                    b.Property<string>("SchoolIdNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StudentName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubjectName")
                         .HasColumnType("nvarchar(max)");
@@ -113,9 +128,55 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
 
                     b.HasKey("HWScoreID");
 
-                    b.HasIndex("HomeWorkScoreID");
+                    b.HasIndex("HomeWorkID");
 
                     b.ToTable("HWScores");
+                });
+
+            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", b =>
+                {
+                    b.Property<int>("HomeWorkID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SchoolIdNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HomeWorkID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("HomeWorks");
+                });
+
+            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.MidTerm", b =>
+                {
+                    b.Property<int>("MidTermID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("SchoolIdNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MidTermID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("MidTerms");
                 });
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Score", b =>
@@ -125,15 +186,11 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ExammID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SchoolIdNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StudentName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MidTermID")
+                        .HasColumnType("int");
 
                     b.Property<string>("SubjectName")
                         .HasColumnType("nvarchar(max)");
@@ -146,9 +203,13 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
 
                     b.HasKey("ScoreID");
 
-                    b.ToTable("Scores");
+                    b.HasIndex("ExammID")
+                        .IsUnique();
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Score");
+                    b.HasIndex("MidTermID")
+                        .IsUnique();
+
+                    b.ToTable("Scores");
                 });
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Student", b =>
@@ -409,58 +470,65 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Examm", b =>
                 {
-                    b.HasBaseType("BlazorStudentGradeCalculatorClient.Shared.Models.Score");
+                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
+                        .WithMany("Examms")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("ExammID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentExammsID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("StudentExammsID");
-
-                    b.HasDiscriminator().HasValue("Examm");
-                });
-
-            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", b =>
-                {
-                    b.HasBaseType("BlazorStudentGradeCalculatorClient.Shared.Models.Score");
-
-                    b.Property<int>("HomeWorkID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentHomeWorkID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("StudentHomeWorkID");
-
-                    b.HasDiscriminator().HasValue("HomeWork");
-                });
-
-            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.MidTerm", b =>
-                {
-                    b.HasBaseType("BlazorStudentGradeCalculatorClient.Shared.Models.Score");
-
-                    b.Property<int>("MidTermID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentMidTermID")
-                        .HasColumnType("int");
-
-                    b.HasIndex("StudentMidTermID");
-
-                    b.HasDiscriminator().HasValue("MidTerm");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HWScore", b =>
                 {
                     b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", "HomeWork")
                         .WithMany("Scores")
-                        .HasForeignKey("HomeWorkScoreID")
+                        .HasForeignKey("HomeWorkID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("HomeWork");
+                });
+
+            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", b =>
+                {
+                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
+                        .WithMany("HomeWorks")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.MidTerm", b =>
+                {
+                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
+                        .WithMany("MidTerms")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Score", b =>
+                {
+                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Examm", "Examm")
+                        .WithOne("Score")
+                        .HasForeignKey("BlazorStudentGradeCalculatorClient.Shared.Models.Score", "ExammID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.MidTerm", "MidTerm")
+                        .WithOne("Score")
+                        .HasForeignKey("BlazorStudentGradeCalculatorClient.Shared.Models.Score", "MidTermID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Examm");
+
+                    b.Navigation("MidTerm");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -516,35 +584,17 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Examm", b =>
                 {
-                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
-                        .WithMany("Examms")
-                        .HasForeignKey("StudentExammsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
+                    b.Navigation("Score");
                 });
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", b =>
                 {
-                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
-                        .WithMany("HomeWorks")
-                        .HasForeignKey("StudentHomeWorkID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
+                    b.Navigation("Scores");
                 });
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.MidTerm", b =>
                 {
-                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
-                        .WithMany("MidTerms")
-                        .HasForeignKey("StudentMidTermID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
+                    b.Navigation("Score");
                 });
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Student", b =>
@@ -554,11 +604,6 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                     b.Navigation("HomeWorks");
 
                     b.Navigation("MidTerms");
-                });
-
-            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", b =>
-                {
-                    b.Navigation("Scores");
                 });
 #pragma warning restore 612, 618
         }

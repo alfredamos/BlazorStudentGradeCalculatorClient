@@ -16,6 +16,9 @@ namespace BlazorStudentGradeCalculatorClient.Client.Mappings
             CreateMap<HomeWork, HomeWorkView>().ReverseMap();
             CreateMap<MidTerm, MidTermView>().ReverseMap();
             CreateMap<Score, ScoreView>().ReverseMap();
+            CreateMap<HWScore, HWScoreView>().ReverseMap();
+            CreateMap<Score, HWScore>().ReverseMap();
+            CreateMap<ScoreView, HWScoreView>().ReverseMap();
             CreateMap<Student, StudentView>().ReverseMap();
         }
     }

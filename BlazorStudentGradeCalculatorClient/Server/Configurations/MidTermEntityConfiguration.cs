@@ -14,7 +14,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.Configurations
         {
             builder.HasOne(x => x.Student)
             .WithMany(x => x.MidTerms)
-            .HasForeignKey(x => x.StudentMidTermID);
+            .HasForeignKey(x => x.StudentID);
         }
     }
 }

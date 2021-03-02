@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
 {
-    public class ExammView
+    public class ExammView 
     {
         public int ExammID { get; set; }
         public string SchoolIdNumber { get; set; }
@@ -14,7 +14,8 @@ namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
 
         public ScoreView Score { get; set; }
 
-        public int StudentExammsID { get; set; }
+        public int StudentID { get; set; }
         public StudentView Student { get; set; }
+       
     }
 }

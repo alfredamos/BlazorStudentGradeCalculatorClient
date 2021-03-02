@@ -1,5 +1,9 @@
+using BlazorStudentGradeCalculatorClient.Client.Contracts;
+using BlazorStudentGradeCalculatorClient.Client.Mappings;
+using BlazorStudentGradeCalculatorClient.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -23,6 +27,20 @@ namespace BlazorStudentGradeCalculatorClient.Client
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorStudentGradeCalculatorClient.ServerAPI"));
+
+            builder.Services.AddScoped<IExammService, ExammService>();
+            builder.Services.AddScoped<IHomeWorkService, HomeWorkService>();
+            builder.Services.AddScoped<IMidTermService, MidTermService>();
+            builder.Services.AddScoped<IStudentService, StudentService>();
+
+            builder.Services.AddAutoMapper(typeof(Mapps));
+
+            builder.Services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+                options.LowercaseQueryStrings = true;
+                options.AppendTrailingSlash = true;
+            });
 
             builder.Services.AddApiAuthorization();
 

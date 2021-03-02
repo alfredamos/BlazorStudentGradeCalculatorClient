@@ -10,8 +10,9 @@ namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
         public int StudentID { get; set; }
         public string SchoolIdNumber { get; set; }
         public string StudentName { get; set; }
-        public ExammView Examm { get; set; }
-        public HomeWorkView HomeWork { get; set; }
-        public MidTermView MidTerm { get; set; }
+        public List<ExammView> Examms { get; set; }
+        public List<HomeWorkView> HomeWorks { get; set; }
+        public List<MidTermView> MidTerms { get; set; }
+
     }
 }

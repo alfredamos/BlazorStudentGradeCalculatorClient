@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
+namespace BlazorStudentGradeCalculatorClient.Server.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -83,6 +83,20 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    StudentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SchoolIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.StudentID);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,6 +205,120 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Examms",
+                columns: table => new
+                {
+                    ExammID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SchoolIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Examms", x => x.ExammID);
+                    table.ForeignKey(
+                        name: "FK_Examms_Students_StudentID",
+                        column: x => x.StudentID,
+                        principalTable: "Students",
+                        principalColumn: "StudentID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HomeWorks",
+                columns: table => new
+                {
+                    HomeWorkID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SchoolIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HomeWorks", x => x.HomeWorkID);
+                    table.ForeignKey(
+                        name: "FK_HomeWorks_Students_StudentID",
+                        column: x => x.StudentID,
+                        principalTable: "Students",
+                        principalColumn: "StudentID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MidTerms",
+                columns: table => new
+                {
+                    MidTermID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SchoolIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MidTerms", x => x.MidTermID);
+                    table.ForeignKey(
+                        name: "FK_MidTerms_Students_StudentID",
+                        column: x => x.StudentID,
+                        principalTable: "Students",
+                        principalColumn: "StudentID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HWScores",
+                columns: table => new
+                {
+                    HWScoreID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectScore = table.Column<double>(type: "float", nullable: false),
+                    SubjectScoreInLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HomeWorkID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HWScores", x => x.HWScoreID);
+                    table.ForeignKey(
+                        name: "FK_HWScores_HomeWorks_HomeWorkID",
+                        column: x => x.HomeWorkID,
+                        principalTable: "HomeWorks",
+                        principalColumn: "HomeWorkID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Scores",
+                columns: table => new
+                {
+                    ScoreID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectScore = table.Column<double>(type: "float", nullable: false),
+                    SubjectScoreInLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExammID = table.Column<int>(type: "int", nullable: false),
+                    MidTermID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Scores", x => x.ScoreID);
+                    table.ForeignKey(
+                        name: "FK_Scores_Examms_ExammID",
+                        column: x => x.ExammID,
+                        principalTable: "Examms",
+                        principalColumn: "ExammID",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Scores_MidTerms_MidTermID",
+                        column: x => x.MidTermID,
+                        principalTable: "MidTerms",
+                        principalColumn: "MidTermID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -242,6 +370,26 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Examms_StudentID",
+                table: "Examms",
+                column: "StudentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HomeWorks_StudentID",
+                table: "HomeWorks",
+                column: "StudentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HWScores_HomeWorkID",
+                table: "HWScores",
+                column: "HomeWorkID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MidTerms_StudentID",
+                table: "MidTerms",
+                column: "StudentID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_Expiration",
                 table: "PersistedGrants",
                 column: "Expiration");
@@ -255,6 +403,18 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scores_ExammID",
+                table: "Scores",
+                column: "ExammID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scores_MidTermID",
+                table: "Scores",
+                column: "MidTermID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -278,13 +438,31 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "HWScores");
+
+            migrationBuilder.DropTable(
                 name: "PersistedGrants");
+
+            migrationBuilder.DropTable(
+                name: "Scores");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "HomeWorks");
+
+            migrationBuilder.DropTable(
+                name: "Examms");
+
+            migrationBuilder.DropTable(
+                name: "MidTerms");
+
+            migrationBuilder.DropTable(
+                name: "Students");
         }
     }
 }

@@ -45,18 +45,18 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
         {
             if (string.IsNullOrWhiteSpace(searchKey))
             {
-                return await _context.Examms.ToListAsync();
+                return await _context.Examms.Include(x => x.Score).ToListAsync();
             }
 
-            return await _context.Examms.Where(ex =>
+            return await _context.Examms.Include(x => x.Score).Where(ex =>
                          ex.SchoolIdNumber.Contains(searchKey) || ex.StudentName.Contains(searchKey) ||
-                         ex.SubjectName.Contains(searchKey) || ex.SubjectScoreInLetter.Contains(searchKey)
+                         ex.Score.SubjectName.Contains(searchKey) || ex.Score.SubjectScoreInLetter.Contains(searchKey)
                          ).ToListAsync();
         }
 
         public async Task<Examm> GetById(int id)
         {
-            return await _context.Examms.FirstOrDefaultAsync(ex => ex.ExammID == id);
+            return await _context.Examms.Include(x => x.Score).FirstOrDefaultAsync(ex => ex.ExammID == id);
         }
 
         public async Task<Examm> UpdateEntity(Examm updatedEntity)

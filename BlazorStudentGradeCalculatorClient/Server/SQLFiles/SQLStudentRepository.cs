@@ -50,11 +50,11 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
             return await _context.Students.Include(st => st.Examms).Include(st => st.MidTerms)
                          .Include(st => st.HomeWorks).Where(st => st.SchoolIdNumber.Contains(searchKey) ||
-                         st.StudentName.Contains(searchKey) || st.Examms.Any(x => x.SubjectName.Contains(searchKey)) ||
-                         st.Examms.Any(x => x.SubjectScoreInLetter.Contains(searchKey)) || 
-                         st.HomeWorks.Any(st => st.SubjectName.Contains(searchKey)) || 
-                         st.HomeWorks.Any(st => st.SubjectScoreInLetter.Contains(searchKey)) ||
-                         st.MidTerms.Any(x => x.SubjectName.Contains(searchKey)) || st.MidTerms.Any(x => x.SubjectScoreInLetter
+                         st.StudentName.Contains(searchKey) || st.Examms.Any(x => x.Score.SubjectName.Contains(searchKey)) ||
+                         st.Examms.Any(x => x.Score.SubjectScoreInLetter.Contains(searchKey)) || 
+                         st.HomeWorks.Any(st => st.Scores.Any(x => x.SubjectName.Contains(searchKey))) || 
+                         st.HomeWorks.Any(st => st.Scores.Any(x => x.SubjectScoreInLetter.Contains(searchKey))) ||
+                         st.MidTerms.Any(x => x.Score.SubjectName.Contains(searchKey)) || st.MidTerms.Any(x => x.Score.SubjectScoreInLetter
                          .Contains(searchKey))).ToListAsync();
         }
 

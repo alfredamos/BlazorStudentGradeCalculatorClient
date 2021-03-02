@@ -26,6 +26,10 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data
             builder.ApplyConfiguration(new HomeWorkEntityConfiguration());
             builder.ApplyConfiguration(new MidTermEntityConfiguration());
             builder.ApplyConfiguration(new ScoreEntityConfiguration());
+            builder.Entity<Examm>().ToTable("Examms");
+            builder.Entity<MidTerm>().ToTable("MidTerms");
+            builder.Entity<HomeWork>().ToTable("HomeWorks");
+            builder.Entity<Score>().ToTable("Scores");
             base.OnModelCreating(builder);
         }
 
