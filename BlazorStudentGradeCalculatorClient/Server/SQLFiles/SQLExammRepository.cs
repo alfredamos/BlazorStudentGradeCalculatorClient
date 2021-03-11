@@ -20,6 +20,13 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             _context = context;
             _mapper = mapper;
         }
+
+        public async Task AddEntities(List<Examm> newEntities)
+        {
+            await _context.AddRangeAsync(newEntities);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Examm> AddEntity(Examm newEntity)
         {
             var examm = await _context.Examms.AddAsync(newEntity);
@@ -41,26 +48,32 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             return exammToDelete;
         }
 
-        public async Task<IEnumerable<Examm>> GetAll(string searchKey = null)
+        public async Task<IEnumerable<Examm>> Search(string searchKey)
         {
             if (string.IsNullOrWhiteSpace(searchKey))
             {
-                return await _context.Examms.Include(x => x.Score).ToListAsync();
+                return await _context.Examms.ToListAsync();
             }
 
-            return await _context.Examms.Include(x => x.Score).Where(ex =>
+            return await _context.Examms.Where(ex =>
                          ex.SchoolIdNumber.Contains(searchKey) || ex.StudentName.Contains(searchKey) ||
-                         ex.Score.SubjectName.Contains(searchKey) || ex.Score.SubjectScoreInLetter.Contains(searchKey)
+                         ex.SubjectName.Contains(searchKey) || ex.SubjectScoreInLetter.Contains(searchKey)
                          ).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Examm>> GetAll()
+        {           
+            return await _context.Examms.ToListAsync();
+        
         }
 
         public async Task<Examm> GetById(int id)
         {
-            return await _context.Examms.Include(x => x.Score).FirstOrDefaultAsync(ex => ex.ExammID == id);
+            return await _context.Examms.FirstOrDefaultAsync(ex => ex.ExammID == id);
         }
 
         public async Task<Examm> UpdateEntity(Examm updatedEntity)
-        {
+        {          
             var result = await _context.Examms.FirstOrDefaultAsync(ex => ex.ExammID == updatedEntity.ExammID);
 
             _mapper.Map(updatedEntity, result);
@@ -68,6 +81,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             await _context.SaveChangesAsync();
 
             return result;
+        }
+
+        public async Task UpdateEntities(List<Examm> examms)
+        {
+            _context.Examms.UpdateRange(examms);
+            await _context.SaveChangesAsync();
         }
     }
 }

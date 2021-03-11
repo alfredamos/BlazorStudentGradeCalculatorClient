@@ -25,11 +25,11 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.Students
 
         // GET: api/Students
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudents(string searchKey = null)
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
             try
             {
-                return Ok(await _studentRepository.GetAll(searchKey));
+                return Ok(await _studentRepository.GetAll());
             }
             catch (Exception)
             {
@@ -89,6 +89,29 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.Students
             }
         }
 
+        // PUT: api/Students/items
+        [HttpPut("items")]
+        public async Task<IActionResult> PutStudents(List<Student> students)
+        {
+            try
+            {
+                if (students == null)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _studentRepository.UpdateEntities(students);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data.");
+            }
+
+        }
+
         // POST: api/Students
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -112,6 +135,29 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.Students
             }
         }
 
+
+        [HttpPost("multiple")]
+        public async Task<IActionResult> PostStudents(List<Student> students)
+        {
+            try
+            {
+                if (students == null)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _studentRepository.AddEntities(students);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
+            }
+
+        }
+
         // DELETE: api/Students/5
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<Student>> DeleteStudent(int id)
@@ -131,6 +177,21 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.Students
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
+            }
+        }
+
+        // GET: api/Students/search/searchKey
+        [HttpGet("search/{searchKey}")]
+        public async Task<ActionResult<IEnumerable<Student>>> Search(string searchKey)
+        {
+            try
+            {
+                return Ok(await _studentRepository.Search(searchKey));
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from database.");
             }
         }
 

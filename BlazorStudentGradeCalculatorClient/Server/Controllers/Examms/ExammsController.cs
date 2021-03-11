@@ -24,11 +24,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.Examms
 
         // GET: api/Examms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Examm>>> GetExamms(string searchKey = null)
+        public async Task<ActionResult<IEnumerable<Examm>>> GetExamms()
         {
             try
             {
-                return Ok(await _exammRepository.GetAll(searchKey));
+               
+                return Ok(await _exammRepository.GetAll());
             }
             catch (Exception)
             {
@@ -89,6 +90,29 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.Examms
                         
         }
 
+        // PUT: api/examms/items
+        [HttpPut("items")]
+        public async Task<IActionResult> PutExamms(List<Examm> examms)
+        {
+            try
+            {
+                if (examms == null)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _exammRepository.UpdateEntities(examms);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data.");
+            }
+
+        }
+
         // POST: api/Examms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -113,6 +137,28 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.Examms
             
         }
 
+        [HttpPost("multiple")]
+        public async Task<IActionResult> PostExamms(List<Examm> examms)
+        {
+            try
+            {
+                if (examms == null)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _exammRepository.AddEntities(examms);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
+            }
+
+        }
+
         // DELETE: api/Examms/5
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<Examm>> DeleteExamm(int id)
@@ -134,6 +180,22 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.Examms
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
             }
             
+        }
+
+        // GET: api/Examms/search/searchKey
+        [HttpGet("search/{searchKey}")]
+        public async Task<ActionResult<IEnumerable<Examm>>> Search(string searchKey)
+        {
+            try
+            {
+                Console.WriteLine("In Controller : " + searchKey);
+                return Ok(await _exammRepository.Search(searchKey));
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from database.");
+            }
         }
 
     }

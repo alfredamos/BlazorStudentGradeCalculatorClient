@@ -23,19 +23,34 @@ namespace BlazorStudentGradeCalculatorClient.Client.Services
             return await _httpClient.PostJsonAsync<MidTerm>(_baseUrl, newEntity);
         }
 
+        public async Task AddEntities(List<MidTerm> newEntities)
+        {
+            await _httpClient.PostJsonAsync($"{_baseUrl}/multiple", newEntities);
+        }
+
         public async Task DeleteEntity(int id)
         {
             await _httpClient.DeleteAsync($"{_baseUrl}/{id}");
         }
 
-        public async Task<IEnumerable<MidTerm>> GetAll(string searchKey = null)
+        public async Task<IEnumerable<MidTerm>> Search(string searchKey)
         {
-            return await _httpClient.GetJsonAsync<MidTerm[]>($"{_baseUrl}/{searchKey}");
+            return await _httpClient.GetJsonAsync<MidTerm[]>($"{_baseUrl}/search/{searchKey}");
+        }
+
+        public async Task<IEnumerable<MidTerm>> GetAll()
+        {
+            return await _httpClient.GetJsonAsync<MidTerm[]>(_baseUrl);
         }
 
         public async Task<MidTerm> GetById(int id)
         {
             return await _httpClient.GetJsonAsync<MidTerm>($"{_baseUrl}/{id}");
+        }
+
+        public async Task UpdateEntities(List<MidTerm> updatedEntities)
+        {
+            await _httpClient.PutJsonAsync($"{ _baseUrl}/items", updatedEntities);
         }
 
         public async Task<MidTerm> UpdateEntity(MidTerm updatedEntity)

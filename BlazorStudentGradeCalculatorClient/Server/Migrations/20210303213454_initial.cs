@@ -92,7 +92,9 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                     StudentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SchoolIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumberOfSubjects = table.Column<int>(type: "int", nullable: false),
+                    GPA = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,6 +215,10 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SchoolIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectScore = table.Column<double>(type: "float", nullable: false),
+                    SubjectScoreInLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumberOfSubjects = table.Column<int>(type: "int", nullable: false),
                     StudentID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -234,6 +240,10 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SchoolIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectScore = table.Column<double>(type: "float", nullable: false),
+                    SubjectScoreInLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumberOfSubjects = table.Column<int>(type: "int", nullable: false),
                     StudentID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -255,6 +265,10 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SchoolIdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectScore = table.Column<double>(type: "float", nullable: false),
+                    SubjectScoreInLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumberOfSubjects = table.Column<int>(type: "int", nullable: false),
                     StudentID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -288,35 +302,6 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                         principalTable: "HomeWorks",
                         principalColumn: "HomeWorkID",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Scores",
-                columns: table => new
-                {
-                    ScoreID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SubjectScore = table.Column<double>(type: "float", nullable: false),
-                    SubjectScoreInLetter = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExammID = table.Column<int>(type: "int", nullable: false),
-                    MidTermID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Scores", x => x.ScoreID);
-                    table.ForeignKey(
-                        name: "FK_Scores_Examms_ExammID",
-                        column: x => x.ExammID,
-                        principalTable: "Examms",
-                        principalColumn: "ExammID",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Scores_MidTerms_MidTermID",
-                        column: x => x.MidTermID,
-                        principalTable: "MidTerms",
-                        principalColumn: "MidTermID",
-                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -403,18 +388,6 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Scores_ExammID",
-                table: "Scores",
-                column: "ExammID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Scores_MidTermID",
-                table: "Scores",
-                column: "MidTermID",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -438,13 +411,16 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "Examms");
+
+            migrationBuilder.DropTable(
                 name: "HWScores");
 
             migrationBuilder.DropTable(
-                name: "PersistedGrants");
+                name: "MidTerms");
 
             migrationBuilder.DropTable(
-                name: "Scores");
+                name: "PersistedGrants");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -454,12 +430,6 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "HomeWorks");
-
-            migrationBuilder.DropTable(
-                name: "Examms");
-
-            migrationBuilder.DropTable(
-                name: "MidTerms");
 
             migrationBuilder.DropTable(
                 name: "Students");

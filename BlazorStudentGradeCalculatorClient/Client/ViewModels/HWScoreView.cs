@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,8 +8,10 @@ namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
 {
     public class HWScoreView
     {
-        public int HWScoreID { get; set; }       
+        public int HWScoreID { get; set; }   
+        [Required]
         public string SubjectName { get; set; }
+        [Required]
         public double SubjectScore { get; set; }
         public string SubjectScoreInLetter { get; set; }
 

@@ -1,4 +1,5 @@
 using BlazorStudentGradeCalculatorClient.Client.Contracts;
+using BlazorStudentGradeCalculatorClient.Client.Helpers;
 using BlazorStudentGradeCalculatorClient.Client.Mappings;
 using BlazorStudentGradeCalculatorClient.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -32,6 +33,8 @@ namespace BlazorStudentGradeCalculatorClient.Client
             builder.Services.AddScoped<IHomeWorkService, HomeWorkService>();
             builder.Services.AddScoped<IMidTermService, MidTermService>();
             builder.Services.AddScoped<IStudentService, StudentService>();
+
+            builder.Services.AddScoped<IUtility, Utility>();
 
             builder.Services.AddAutoMapper(typeof(Mapps));
 

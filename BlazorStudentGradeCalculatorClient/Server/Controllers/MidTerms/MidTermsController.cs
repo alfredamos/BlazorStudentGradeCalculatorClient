@@ -25,11 +25,11 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.MidTerms
 
         // GET: api/MidTerms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MidTerm>>> GetMidTerms(string searchKey = null)
+        public async Task<ActionResult<IEnumerable<MidTerm>>> GetMidTerms()
         {
             try
             {
-                return Ok(await _midTermRepository.GetAll(searchKey));
+                return Ok(await _midTermRepository.GetAll());
             }
             catch (Exception)
             {
@@ -89,6 +89,30 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.MidTerms
 
         }
 
+        // PUT: api/midTerms/items
+        [HttpPut("items")]
+        public async Task<IActionResult> PutMidTerms(List<MidTerm> midTerms)
+        {
+            try
+            {
+                if (midTerms == null)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _midTermRepository.UpdateEntities(midTerms);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data.");
+            }
+
+        }
+
+
         // POST: api/MidTerms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -112,6 +136,29 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.MidTerms
             }
         }
 
+
+        [HttpPost("multiple")]
+        public async Task<IActionResult> PostMidTerms(List<MidTerm> midTerms)
+        {
+            try
+            {
+                if (midTerms == null)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _midTermRepository.AddEntities(midTerms);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
+            }
+
+        }
+
         // DELETE: api/MidTerms/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<MidTerm>> DeleteMidTerm(int id)
@@ -131,6 +178,21 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.MidTerms
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
+            }
+        }
+
+        // GET: api/MidTerms/search/searchKey
+        [HttpGet("search/{searchKey}")]
+        public async Task<ActionResult<IEnumerable<MidTerm>>> SearchKey(string searchKey)
+        {
+            try
+            {
+                return Ok(await _midTermRepository.Search(searchKey));
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from database.");
             }
         }
 

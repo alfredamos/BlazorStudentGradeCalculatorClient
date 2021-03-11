@@ -1,0 +1,34 @@
+﻿@page "/editExamm/{Id:int}"
+@inherits EditExammsBase
+
+
+<h1 class="card-header">Edit Examm Score</h1>
+
+<hr/>
+
+<EditForm Model="Examm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="SchoolIdNumber" class="form-label">School ID</label>
+        <InputText @bind-Value="Examm.SchoolIdNumber" class="form-control" placeholder="School ID" />
+        <ValidationMessage For="@(() => Examm.SchoolIdNumber)" />
+    </div>
+    <div class="form-group">
+        <label for="StudentName" class="form-label">Student Name</label>
+        <InputText @bind-Value="Examm.StudentName" class="form-control" placeholder="Student Name" />
+        <ValidationMessage For="@(() => Examm.StudentName)" />
+    </div>
+    <div class="form-group">
+        <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
+        <InputNumber @bind-Value="Examm.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
+        <ValidationMessage For="@(() => Examm.StudentName)" />
+    </div>
+
+</EditForm>
+
+
+
+<ExammForm Examm="Examm" HideButton="HideButtons" UpsertExamm="UpdateExamm"
+           CancelMethod="Cancel" UpsertButton="Save" CancelButton="Cancel" />

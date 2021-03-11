@@ -19,4 +19,6 @@
     <ProjectReference Include="..\Shared\BlazorStudentGradeCalculatorClient.Shared.csproj" />
   </ItemGroup>
 
+  
+
 </Project>

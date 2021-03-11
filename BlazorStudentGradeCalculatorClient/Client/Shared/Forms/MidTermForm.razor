@@ -1,0 +1,66 @@
+﻿@inject IUtility utility
+
+<EditForm Model="MidTerm">
+    <div class="form-group">
+        <label for="SchoolIdNumber" class="form-label">School ID</label>
+        <InputText @bind-Value="MidTerm.SchoolIdNumber" class="form-control" placeholder="School ID" />
+        <ValidationMessage For="@(() => MidTerm.SchoolIdNumber)" />
+    </div>
+    <div class="form-group">
+        <label for="StudentName" class="form-label">Student Name</label>
+        <InputText @bind-Value="MidTerm.StudentName" class="form-control" placeholder="Student Name" />
+        <ValidationMessage For="@(() => MidTerm.StudentName)" />
+    </div>
+    <div class="form-group">
+        <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
+        <InputNumber @bind-Value="MidTerm.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
+        <ValidationMessage For="@(() => MidTerm.StudentName)" />
+    </div>
+
+    @for (int i = 0; i < MidTerm.NumberOfSubjects; i++)
+    {
+        <div class="form-group">
+            <label for="SubjectName" class="form-label">Subject Name</label>
+            <InputText @bind-Value="MidTerm.SubjectName" class="form-control" placeholder="Subject Name" />
+            <ValidationMessage For="@(() => MidTerm.SubjectName)" />
+        </div>
+        <div class="form-group">
+            <label for="SubjectScore" class="form-label">Subject Score</label>
+            <InputNumber @bind-Value="MidTerm.SubjectScore" class="form-control" placeholder="Subject Score" />
+            <ValidationMessage For="@(() => MidTerm.SubjectScore)" />
+        </div>
+
+        MidTerm.SubjectScoreInLetter = utility.GradeFetcher(MidTerm.SubjectScore);
+
+        MidTerms.Add(MidTerm);
+    }
+
+    <div class="form-group">
+        <button type="button" class="btn btn-outline-info" @onclick="UpsertMidTerm" style="font-weight: bold">@UpsertButton</button>
+        <button type="button" class="btn btn-outline-info" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
+    </div>
+
+
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public MidTermView MidTerm { get; set; }
+
+    [Parameter]
+    public List<MidTermView> MidTerms { get; set; }
+
+    [Parameter]
+    public EventCallback UpsertMidTerm { get; set; }
+
+    [Parameter]
+    public EventCallback CancelMethod { get; set; }
+
+    [Parameter]
+    public string UpsertButton { get; set; }
+
+    [Parameter]
+    public string CancelButton { get; set; }
+
+}

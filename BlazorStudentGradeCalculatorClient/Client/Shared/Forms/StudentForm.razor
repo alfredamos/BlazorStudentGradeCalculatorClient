@@ -1,0 +1,37 @@
+﻿
+<EditForm Model="Student">
+    <div class="form-group">
+        <label for="SchoolIdNumber" class="form-label">School ID</label>
+        <InputText @bind-Value="Student.SchoolIdNumber" class="form-control" placeholder="Student ID" />
+    </div>
+    <div class="form-group">
+        <label for="StudentName" class="form-label">Student Name</label>
+        <InputText @bind-Value="Student.StudentName" class="form-control" placeholder="Student Name" />
+    </div>
+    <div class="form-group">
+        <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
+        <InputNumber @bind-Value="Student.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
+    </div>  
+    <div class="form-group">
+        <button type="button" @onclick="UpsertStudent" class="btn btn-outline-success" style="font-weight:bold">@UpsertButton</button>
+        <button type="button" @onclick="CancelMethod" class="btn btn-outline-secondary" style="font-weight:bold">@CancelButton</button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public StudentView Student { get; set; }
+
+    [Parameter]
+    public EventCallback UpsertStudent { get; set; }
+
+    [Parameter]
+    public EventCallback CancelMethod { get; set; }
+
+    [Parameter]
+    public string UpsertButton { get; set; }
+
+    [Parameter]
+    public string CancelButton { get; set; }
+
+}

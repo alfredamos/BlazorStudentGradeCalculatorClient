@@ -28,6 +28,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             return examm.Entity;
         }
 
+        public async Task AddEntities(List<HomeWork> newEntities)
+        {
+            await _context.AddRangeAsync(newEntities);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<HomeWork> DeleteEntity(int id)
         {
             var homeWorkToDelete = await _context.HomeWorks.FindAsync(id);
@@ -41,7 +47,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             return homeWorkToDelete;
         }
 
-        public async Task<IEnumerable<HomeWork>> GetAll(string searchKey = null)
+        public async Task<IEnumerable<HomeWork>> Search(string searchKey)
         {
             if (string.IsNullOrWhiteSpace(searchKey))
             {
@@ -50,9 +56,14 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
             return await _context.HomeWorks.Include(ex => ex.Scores).Where(ex =>
                          ex.SchoolIdNumber.Contains(searchKey) || ex.StudentName.Contains(searchKey) ||
-                         ex.Scores.Any(hw => hw.SubjectName.Contains(searchKey)) || ex.Scores.Any(hw => 
+                         ex.Scores.Any(hw => hw.SubjectName.Contains(searchKey)) || ex.Scores.Any(hw =>
                          hw.SubjectScoreInLetter.Contains(searchKey))).ToListAsync();
 
+        }
+
+        public async Task<IEnumerable<HomeWork>> GetAll()
+        {            
+            return await _context.HomeWorks.ToListAsync();            
         }
 
         public async Task<HomeWork> GetById(int id)
@@ -71,6 +82,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             await _context.SaveChangesAsync();
 
             return result;
+        }
+
+        public async Task UpdateEntities(List<HomeWork> homeWorks)
+        {
+            _context.HomeWorks.UpdateRange(homeWorks);
+            await _context.SaveChangesAsync();
         }
     }
 }

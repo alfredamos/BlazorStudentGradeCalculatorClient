@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace BlazorStudentGradeCalculatorClient.Client.Contracts
 {
     public interface IExammService : IBaseService<Examm>
-    {
+    {       
     }
 }

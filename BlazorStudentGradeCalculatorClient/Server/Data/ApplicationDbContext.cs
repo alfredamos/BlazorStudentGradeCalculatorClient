@@ -23,21 +23,17 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new ExammsEntityConfiguration());
+            builder.ApplyConfiguration(new HWScoreEntityConfiguration());
             builder.ApplyConfiguration(new HomeWorkEntityConfiguration());
             builder.ApplyConfiguration(new MidTermEntityConfiguration());
-            builder.ApplyConfiguration(new ScoreEntityConfiguration());
-            builder.Entity<Examm>().ToTable("Examms");
-            builder.Entity<MidTerm>().ToTable("MidTerms");
-            builder.Entity<HomeWork>().ToTable("HomeWorks");
-            builder.Entity<Score>().ToTable("Scores");
+            
             base.OnModelCreating(builder);
         }
 
         public DbSet<Examm> Examms { get; set; }
         public DbSet<HomeWork> HomeWorks { get; set; }
-        public DbSet<HWScore> HWScores { get; set; }
         public DbSet<MidTerm> MidTerms { get; set; }
-        public DbSet<Score> Scores { get; set; }
+        public DbSet<HWScore> HWScores { get; set; }       
         public DbSet<Student> Students { get; set; }
     }
 }

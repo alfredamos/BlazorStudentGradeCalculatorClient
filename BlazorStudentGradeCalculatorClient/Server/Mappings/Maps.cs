@@ -15,7 +15,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.Mappings
             CreateMap<HomeWork, HomeWork>();
             CreateMap<MidTerm, MidTerm>();
             CreateMap<Student, Student>();
-            CreateMap<Score, Score>();
+            CreateMap<HWScore, HWScore>();
         }
     }
 }

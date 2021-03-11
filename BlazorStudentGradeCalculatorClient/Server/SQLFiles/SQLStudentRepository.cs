@@ -28,6 +28,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             return student.Entity;
         }
 
+        public async Task AddEntities(List<Student> newEntities)
+        {
+            await _context.AddRangeAsync(newEntities);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Student> DeleteEntity(int id)
         {
             var studentToDelete = await _context.Students.FindAsync(id);
@@ -41,7 +47,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             return studentToDelete;
         }
 
-        public async Task<IEnumerable<Student>> GetAll(string searchKey = null)
+        public async Task<IEnumerable<Student>> Search(string searchKey)
         {
             if (string.IsNullOrWhiteSpace(searchKey))
             {
@@ -50,12 +56,18 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
             return await _context.Students.Include(st => st.Examms).Include(st => st.MidTerms)
                          .Include(st => st.HomeWorks).Where(st => st.SchoolIdNumber.Contains(searchKey) ||
-                         st.StudentName.Contains(searchKey) || st.Examms.Any(x => x.Score.SubjectName.Contains(searchKey)) ||
-                         st.Examms.Any(x => x.Score.SubjectScoreInLetter.Contains(searchKey)) || 
-                         st.HomeWorks.Any(st => st.Scores.Any(x => x.SubjectName.Contains(searchKey))) || 
+                         st.StudentName.Contains(searchKey) || st.Examms.Any(x => x.SubjectName.Contains(searchKey)) ||
+                         st.Examms.Any(x => x.SubjectScoreInLetter.Contains(searchKey)) ||
+                         st.HomeWorks.Any(st => st.Scores.Any(x => x.SubjectName.Contains(searchKey))) ||
                          st.HomeWorks.Any(st => st.Scores.Any(x => x.SubjectScoreInLetter.Contains(searchKey))) ||
-                         st.MidTerms.Any(x => x.Score.SubjectName.Contains(searchKey)) || st.MidTerms.Any(x => x.Score.SubjectScoreInLetter
+                         st.MidTerms.Any(x => x.SubjectName.Contains(searchKey)) || st.MidTerms.Any(x => x.SubjectScoreInLetter
                          .Contains(searchKey))).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Student>> GetAll()
+        {         
+            return await _context.Students.ToListAsync();
+            
         }
 
         public async Task<Student> GetById(int id)
@@ -78,6 +90,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
             return result;
 
+        }
+
+        public async Task UpdateEntities(List<Student> students)
+        {
+            _context.Students.UpdateRange(students);
+            await _context.SaveChangesAsync();
         }
     }
 }

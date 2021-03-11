@@ -28,6 +28,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             return examm.Entity;
         }
 
+        public async Task AddEntities(List<MidTerm> newEntities)
+        {
+            await _context.AddRangeAsync(newEntities);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<MidTerm> DeleteEntity(int id)
         {
             var midTermToDelete = await _context.MidTerms.FindAsync(id);
@@ -41,22 +47,28 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             return midTermToDelete;
         }
 
-        public async Task<IEnumerable<MidTerm>> GetAll(string searchKey = null)
+        public async Task<IEnumerable<MidTerm>> GetAll()
+        {           
+            return await _context.MidTerms.ToListAsync();
+          
+        }
+
+        public async Task<IEnumerable<MidTerm>> Search(string searchKey)
         {
             if (string.IsNullOrWhiteSpace(searchKey))
             {
-                return await _context.MidTerms.Include(x => x.Score).ToListAsync();
+                return await _context.MidTerms.ToListAsync();
             }
 
-            return await _context.MidTerms.Include(x => x.Score).Where(ex =>
+            return await _context.MidTerms.Where(ex =>
                          ex.SchoolIdNumber.Contains(searchKey) || ex.StudentName.Contains(searchKey) ||
-                         ex.Score.SubjectName.Contains(searchKey) || ex.Score.SubjectScoreInLetter.Contains(searchKey)
+                         ex.SubjectName.Contains(searchKey) || ex.SubjectScoreInLetter.Contains(searchKey)
                          ).ToListAsync();
         }
 
         public async Task<MidTerm> GetById(int id)
         {
-            return await _context.MidTerms.Include(x => x.Score).FirstOrDefaultAsync(ex => ex.MidTermID == id);
+            return await _context.MidTerms.FirstOrDefaultAsync(ex => ex.MidTermID == id);
         }
 
         public async Task<MidTerm> UpdateEntity(MidTerm updatedEntity)
@@ -68,6 +80,12 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
             await _context.SaveChangesAsync();
 
             return result;
+        }
+
+        public async Task UpdateEntities(List<MidTerm> midTerms)
+        {
+            _context.MidTerms.UpdateRange(midTerms);
+            await _context.SaveChangesAsync();
         }
 
     }

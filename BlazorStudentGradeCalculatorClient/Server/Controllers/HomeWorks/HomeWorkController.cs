@@ -25,11 +25,11 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.HomeWorks
 
         // GET: api/HomeWork
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HomeWork>>> GetHomeWorks(string searchKey = null)
+        public async Task<ActionResult<IEnumerable<HomeWork>>> GetHomeWorks()
         {
             try
             {
-                return Ok(await _homeWorkRepository.GetAll(searchKey));
+                return Ok(await _homeWorkRepository.GetAll());
             }
             catch (Exception)
             {
@@ -89,6 +89,30 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.HomeWorks
 
         }
 
+        // PUT: api/homeWorks/items
+        [HttpPut("items")]
+        public async Task<IActionResult> PutHomeWorks(List<HomeWork> homeWorks)
+        {
+            try
+            {
+                if (homeWorks == null)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _homeWorkRepository.UpdateEntities(homeWorks);
+
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data.");
+            }
+
+        }
+
+
         // POST: api/HomeWork
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -104,6 +128,28 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.HomeWorks
                 var createdHomeWork = await _homeWorkRepository.AddEntity(homeWork);
 
                 return CreatedAtAction(nameof(GetHomeWork), new { id = createdHomeWork.HomeWorkID }, createdHomeWork);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
+            }
+
+        }
+
+        [HttpPost("multiple")]
+        public async Task<IActionResult> PostHomeWorks(List<HomeWork> homeWorks)
+        {
+            try
+            {
+                if (homeWorks == null)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _homeWorkRepository.AddEntities(homeWorks);
+
+                return NoContent();
             }
             catch (Exception)
             {
@@ -132,6 +178,21 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.HomeWorks
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error creating data.");
+            }
+        }
+
+        // GET: api/HomeWork/search/searchKey
+        [HttpGet("search/{searchKey}")]
+        public async Task<ActionResult<IEnumerable<HomeWork>>> Search(string searchKey)
+        {
+            try
+            {
+                return Ok(await _homeWorkRepository.Search(searchKey));
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from database.");
             }
         }
 
