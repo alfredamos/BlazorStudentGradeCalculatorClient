@@ -11,6 +11,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.Helpers
     {
         public event Action OnChange;
         private List<ExammView> Examms = new List<ExammView>();
+        private List<MidTermView> MidTerms = new List<MidTermView>();
 
         public List<ExammView> ExammList(ExammView examm)
         {
@@ -22,8 +23,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.Helpers
                 StudentName = examm.StudentName,
                 SubjectScore = examm.SubjectScore,
                 SubjectName = examm.SubjectName,
-                SubjectScoreInLetter = examm.SubjectScoreInLetter,
-                //StudentID = 2
+                SubjectScoreInLetter = examm.SubjectScoreInLetter,                
             }) ;
 
             NotifyDataChanged();
@@ -62,6 +62,30 @@ namespace BlazorStudentGradeCalculatorClient.Client.Helpers
         public void ClearList(List<ExammView> examms)
         {
             examms.Clear();
+            NotifyDataChanged();
+        }
+
+        public List<MidTermView> MidTermList(MidTermView midTerm)
+        {
+            MidTerms.Add(
+            new MidTermView
+            {
+                NumberOfSubjects = midTerm.NumberOfSubjects,
+                SchoolIdNumber = midTerm.SchoolIdNumber,
+                StudentName = midTerm.StudentName,
+                SubjectScore = midTerm.SubjectScore,
+                SubjectName = midTerm.SubjectName,
+                SubjectScoreInLetter = midTerm.SubjectScoreInLetter,
+            });
+
+            NotifyDataChanged();
+
+            return MidTerms;
+        }
+
+        public void ClearList(List<MidTermView> midTerms)
+        {
+            midTerms.Clear();
             NotifyDataChanged();
         }
     }

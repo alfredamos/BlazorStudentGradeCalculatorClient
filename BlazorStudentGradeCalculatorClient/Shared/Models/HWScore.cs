@@ -13,7 +13,7 @@ namespace BlazorStudentGradeCalculatorClient.Shared.Models
         public double SubjectScore { get; set; }
         public string SubjectScoreInLetter { get; set; }
 
-        public int HomeWorkID { get; set; }
+        public int? HomeWorkID { get; set; }
         public HomeWork HomeWork { get; set; }
 
     }

@@ -1,45 +1,36 @@
 ﻿@inject IUtility utility
 
 <EditForm Model="MidTerm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
     <div class="form-group">
-        <label for="SchoolIdNumber" class="form-label">School ID</label>
-        <InputText @bind-Value="MidTerm.SchoolIdNumber" class="form-control" placeholder="School ID" />
-        <ValidationMessage For="@(() => MidTerm.SchoolIdNumber)" />
+        <label for="SubjectName" class="form-label">Subject Name</label>
+        <InputText @bind-Value="MidTerm.SubjectName" class="form-control" placeholder="Subject Name" />
+        <ValidationMessage For="@(() => MidTerm.SubjectName)" />
     </div>
     <div class="form-group">
-        <label for="StudentName" class="form-label">Student Name</label>
-        <InputText @bind-Value="MidTerm.StudentName" class="form-control" placeholder="Student Name" />
-        <ValidationMessage For="@(() => MidTerm.StudentName)" />
-    </div>
-    <div class="form-group">
-        <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
-        <InputNumber @bind-Value="MidTerm.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
-        <ValidationMessage For="@(() => MidTerm.StudentName)" />
+        <label for="SubjectScore" class="form-label">Subject Score</label>
+        <InputNumber @bind-Value="MidTerm.SubjectScore" class="form-control" placeholder="Subject Score" />
+        <ValidationMessage For="@(() => MidTerm.SubjectScore)" />
     </div>
 
-    @for (int i = 0; i < MidTerm.NumberOfSubjects; i++)
+
+
+    @if (!HideButton)
     {
         <div class="form-group">
-            <label for="SubjectName" class="form-label">Subject Name</label>
-            <InputText @bind-Value="MidTerm.SubjectName" class="form-control" placeholder="Subject Name" />
-            <ValidationMessage For="@(() => MidTerm.SubjectName)" />
+            <button type="button" class="btn btn-outline-info" @onclick="Proceed" style="font-weight: bold">Proceed</button>
+            <button type="button" class="btn btn-outline-info" @onclick="Finish" style="font-weight: bold">Cancel</button>
         </div>
-        <div class="form-group">
-            <label for="SubjectScore" class="form-label">Subject Score</label>
-            <InputNumber @bind-Value="MidTerm.SubjectScore" class="form-control" placeholder="Subject Score" />
-            <ValidationMessage For="@(() => MidTerm.SubjectScore)" />
-        </div>
-
-        MidTerm.SubjectScoreInLetter = utility.GradeFetcher(MidTerm.SubjectScore);
-
-        MidTerms.Add(MidTerm);
     }
-
-    <div class="form-group">
-        <button type="button" class="btn btn-outline-info" @onclick="UpsertMidTerm" style="font-weight: bold">@UpsertButton</button>
-        <button type="button" class="btn btn-outline-info" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
-    </div>
-
+    @if (HideButton)
+    {
+        <div class="form-group">
+            <button type="button" class="btn btn-outline-info" @onclick="UpsertExamm" style="font-weight: bold">@UpsertButton</button>
+            <button type="button" class="btn btn-outline-info" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
+        </div>
+    }
 
 </EditForm>
 
@@ -49,10 +40,13 @@
     public MidTermView MidTerm { get; set; }
 
     [Parameter]
-    public List<MidTermView> MidTerms { get; set; }
+    public EventCallback Proceed { get; set; }
 
     [Parameter]
-    public EventCallback UpsertMidTerm { get; set; }
+    public EventCallback Finish { get; set; }
+
+    [Parameter]
+    public EventCallback UpsertExamm { get; set; }
 
     [Parameter]
     public EventCallback CancelMethod { get; set; }
@@ -62,5 +56,11 @@
 
     [Parameter]
     public string CancelButton { get; set; }
+
+    [Parameter]
+    public bool HideButton { get; set; } = false;
+
+    public bool ShowForm { get; set; } = true;
+
 
 }

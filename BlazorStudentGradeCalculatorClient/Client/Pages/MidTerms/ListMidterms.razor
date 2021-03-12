@@ -1,0 +1,65 @@
+﻿@page "/listMidterms"
+@inherits ListMidtermsBase
+
+<br />
+
+<h1 class="card-header text-center">List of MidTerms Scores</h1>
+
+<br />
+
+
+@foreach (var itema in MidTerms)
+{
+    if (itema.SchoolIdNumber != MidTermTemp.SchoolIdNumber)
+    {
+        var midTerms = MidTerms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+
+        <table class="table table-bordered">
+
+            <thead>
+                <tr>
+                    <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">School ID          : @midTerms[0].SchoolIdNumber</a></th>
+                    <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">Student Name       : @midTerms[0].StudentName</a></th>
+                    <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">Number of Subjects : @midTerms[0].NumberOfSubjects</a></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Subject</th>
+                    <th>Score</th>
+                    <th>Grade</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in midTerms)
+                {
+                    <tr>
+                        <td>@item.SubjectName</td>
+                        <td>@item.SubjectScore</td>
+                        <td>@item.SubjectScoreInLetter</td>
+                        <td>
+                            <a class="btn btn-warning" href="@($"/editMidterm/{item.MidTermID}")" style="font-weight: bold">
+                                <i class="oi oi-pencil">Edit</i>
+                            </a>
+                            <a class="btn btn-danger" href="@($"/deleteMidterm/{item.MidTermID}")" style="font-weight: bold">
+                                <i class="oi oi-delete">Delete</i>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+
+
+            </tbody>
+
+
+        </table>
+        <br />
+    }
+    MidTermTemp = itema;
+}
+
+<div class="colspan-md-3">
+    <a href="addMidterm" class="btn btn-outline-secondary" style="font-weight: bold">Create MidTerm</a>
+</div>

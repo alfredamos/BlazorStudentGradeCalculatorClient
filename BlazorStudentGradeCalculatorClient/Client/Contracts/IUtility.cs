@@ -12,6 +12,12 @@ namespace BlazorStudentGradeCalculatorClient.Client.Contracts
         string GradeFetcher(double score);      
         List<ExammView> ExammList(ExammView examm);
         void ClearList(List<ExammView> examms);
+        List<MidTermView> MidTermList(MidTermView midTerm);
+        void ClearList(List<MidTermView> midTerms);
+        //List<HomeWorkView> HomeWorkList(HomeWorkView homeWork);
+        //void ClearList(List<HomeWorkView> homeWorks);
+        //List<StudentView> StudentList(StudentView student);
+        //void ClearList(List<StudentView> students);
 
     }
 }
