@@ -22,11 +22,11 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new ExammsEntityConfiguration());
-            builder.ApplyConfiguration(new HWScoreEntityConfiguration());
+            builder.ApplyConfiguration(new ExammsEntityConfiguration());            
             builder.ApplyConfiguration(new HomeWorkEntityConfiguration());
             builder.ApplyConfiguration(new MidTermEntityConfiguration());
-            
+            builder.ApplyConfiguration(new HWScoreEntityConfiguration());
+
             base.OnModelCreating(builder);
         }
 

@@ -35,6 +35,7 @@ namespace BlazorStudentGradeCalculatorClient.Client
             builder.Services.AddScoped<IStudentService, StudentService>();
 
             builder.Services.AddScoped<IUtility, Utility>();
+            builder.Services.AddScoped<IHWUtility, HWUtility>();
 
             builder.Services.AddAutoMapper(typeof(Mapps));
 

@@ -1,7 +1,81 @@
-﻿@inject IUtility utility
+﻿@inject IHWUtility hwUtility
 
-<h3>HomeWorkForm</h3>
+<EditForm Model="Score">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="SubjectName" class="form-label">Subject Name</label>
+        <InputText @bind-Value="Score.SubjectName" class="form-control" placeholder="Subject Name" />
+        <ValidationMessage For="@(() => Score.SubjectName)" />
+    </div>
+    <div class="form-group">
+        <label for="SubjectScore" class="form-label">Subject Score</label>
+        <InputNumber @bind-Value="Score.SubjectScore" class="form-control" placeholder="Subject Score" />
+        <ValidationMessage For="@(() => Score.SubjectScore)" />
+    </div>
+
+
+
+    @if (!HideButton)
+    {
+        Score.SubjectScoreInLetter = hwUtility.GradeFetcher(Score.SubjectScore);
+
+        <div class="form-group">
+            <button type="button" class="btn btn-outline-info" @onclick="@(() => Proceed(Score))" style="font-weight: bold">Proceed</button>
+            <button type="button" class="btn btn-outline-info" @onclick="Finish" style="font-weight: bold">Cancel</button>
+        </div>
+    }
+    @if (HideButton)
+    {
+        Score.SubjectScoreInLetter = hwUtility.GradeFetcher(Score.SubjectScore);
+        
+        <div class="form-group">
+            <button type="button" class="btn btn-outline-info" @onclick="@(() => UpsertHomeWork(Score))" style="font-weight: bold">@UpsertButton</button>
+            <button type="button" class="btn btn-outline-info" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
+        </div>
+    }
+
+</EditForm>
+
+
 
 @code {
+    [Parameter]
+    public HWScoreView Score { get; set; } = new HWScoreView();
+
+    [Parameter]
+    public EventCallback<HWScoreView> Enter { get; set; }
+
+    [Parameter]
+    public EventCallback Finish { get; set; }
+
+    [Parameter]
+    public EventCallback<HWScoreView> CreateHW { get; set; }
+
+    [Parameter]
+    public EventCallback CancelMethod { get; set; }
+
+    [Parameter]
+    public string UpsertButton { get; set; }
+
+    [Parameter]
+    public string CancelButton { get; set; }
+
+    [Parameter]
+    public bool HideButton { get; set; } = false;
+
+    public bool ShowForm { get; set; } = true;
+
+    private async Task Proceed(HWScoreView score)
+    {
+        await Enter.InvokeAsync(score);
+    }
+
+    private async Task UpsertHomeWork(HWScoreView score)
+    {
+        await CreateHW.InvokeAsync(score);
+    }
+
 
 }

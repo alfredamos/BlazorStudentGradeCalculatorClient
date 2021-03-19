@@ -92,7 +92,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.Examms
             }            
             ++Kounter;
         }
-
+       
         protected void Back()
         {            
             ShowComponent = true;

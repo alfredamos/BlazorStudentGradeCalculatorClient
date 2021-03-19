@@ -10,9 +10,9 @@ namespace BlazorStudentGradeCalculatorClient.Client.Helpers
     public class Utility : IUtility
     {
         public event Action OnChange;
-        private List<ExammView> Examms = new List<ExammView>();
-        private List<MidTermView> MidTerms = new List<MidTermView>();
-
+        private List<ExammView> Examms = new();
+        private List<MidTermView> MidTerms = new();
+        
         public List<ExammView> ExammList(ExammView examm)
         {
             Examms.Add(
@@ -24,7 +24,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.Helpers
                 SubjectScore = examm.SubjectScore,
                 SubjectName = examm.SubjectName,
                 SubjectScoreInLetter = examm.SubjectScoreInLetter,                
-            }) ;
+            });
 
             NotifyDataChanged();
 
@@ -88,5 +88,6 @@ namespace BlazorStudentGradeCalculatorClient.Client.Helpers
             midTerms.Clear();
             NotifyDataChanged();
         }
+
     }
 }

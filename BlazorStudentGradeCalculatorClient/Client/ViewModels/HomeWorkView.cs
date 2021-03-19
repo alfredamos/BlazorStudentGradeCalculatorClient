@@ -20,11 +20,13 @@ namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
         public string SubjectScoreInLetter { get; set; }
         [Required]
         public int NumberOfSubjects { get; set; }
+        [Required]
+        public int NumberOfHomeWorks { get; set; }
 
         public List<HWScoreView> Scores { get; set; }
 
         public int? StudentID { get; set; }
         public StudentView Student { get; set; }
-
+        
     }
 }

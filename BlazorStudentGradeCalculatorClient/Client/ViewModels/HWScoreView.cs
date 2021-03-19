@@ -17,6 +17,6 @@ namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
 
         public int? HomeWorkID { get; set; }
         public HomeWorkView HomeWork { get; set; }
-       
+
     }
 }
