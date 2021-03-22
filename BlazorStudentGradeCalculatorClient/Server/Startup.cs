@@ -60,6 +60,7 @@ namespace BlazorStudentGradeCalculatorClient.Server
             services.AddScoped<IExammRepository, SQLExammRepository>();
             services.AddScoped<IHomeWorkRepository, SQLHomeWorkRepository>();
             services.AddScoped<IMidTermRepository, SQLMidTermRepository>();
+            services.AddScoped<IScoreRepository, SQLScoreRepository>();
             services.AddScoped<IStudentRepository, SQLStudentRepository>();
 
             services.AddAutoMapper(typeof(Maps));

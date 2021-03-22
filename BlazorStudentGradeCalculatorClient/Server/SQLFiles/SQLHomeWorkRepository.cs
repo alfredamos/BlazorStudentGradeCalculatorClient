@@ -63,7 +63,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
         public async Task<IEnumerable<HomeWork>> GetAll()
         {            
-            return await _context.HomeWorks.ToListAsync();            
+            return await _context.HomeWorks.Include(x => x.Scores).ToListAsync();            
         }
 
         public async Task<HomeWork> GetById(int id)
@@ -74,8 +74,6 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
         public async Task<HomeWork> UpdateEntity(HomeWork updatedEntity)
         {
             var result = await _context.HomeWorks.FirstOrDefaultAsync(ex => ex.HomeWorkID == updatedEntity.HomeWorkID);
-
-            _mapper.Map(updatedEntity, result);
 
             result.Scores = updatedEntity.Scores;
 

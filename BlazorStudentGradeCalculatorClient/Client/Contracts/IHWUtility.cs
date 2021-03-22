@@ -11,5 +11,6 @@ namespace BlazorStudentGradeCalculatorClient.Client.Contracts
         HomeWorkView HomeWorkInfo(HomeWorkView homeWork, List<HWScoreView> scores);
         HWScoreView ScoreInfo(HWScoreView score);
         public string GradeFetcher(double score);
+        double AverageScoreCalculator(List<HWScoreView> scores);
     }
 }

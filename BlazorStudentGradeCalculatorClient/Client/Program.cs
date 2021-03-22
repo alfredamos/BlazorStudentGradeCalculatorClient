@@ -32,6 +32,7 @@ namespace BlazorStudentGradeCalculatorClient.Client
             builder.Services.AddScoped<IExammService, ExammService>();
             builder.Services.AddScoped<IHomeWorkService, HomeWorkService>();
             builder.Services.AddScoped<IMidTermService, MidTermService>();
+            builder.Services.AddScoped<IScoreService, ScoreService>();
             builder.Services.AddScoped<IStudentService, StudentService>();
 
             builder.Services.AddScoped<IUtility, Utility>();

@@ -70,6 +70,8 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.HomeWorks
 
         public int NumbTempHomeWork { get; set; } = 0;
 
+        public bool ShowHWCounter { get; set; } = false;
+
         protected override void OnInitialized()
         {
            
@@ -104,7 +106,13 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.HomeWorks
             {               
                 Scores.Add(score);
 
+                SubjectName = score.SubjectName;
+
                 Score = new HWScoreView();
+
+                Score.SubjectName = SubjectName;
+
+                ShowHWCounter = true;
 
                 if (KounterNumbOfHomeWork == NumbTempHomeWork)
                 {                    
@@ -125,8 +133,6 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.HomeWorks
 
                         ShowMainForm = true;
                         ShowHWInput = false;
-
-                        //NavigationManager.NavigateTo("/addHomeWork");
 
                     }
                 }

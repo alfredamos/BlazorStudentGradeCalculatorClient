@@ -60,6 +60,6 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.Examms
         {
             NavigationManager.NavigateTo("/listExamms");
         }
-
+ 
     }
 }

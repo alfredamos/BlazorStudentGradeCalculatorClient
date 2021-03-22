@@ -81,5 +81,9 @@ namespace BlazorStudentGradeCalculatorClient.Client.Helpers
 
         }
 
+        public double AverageScoreCalculator(List<HWScoreView> scores)
+        {
+            return CalculateScoreAverage(scores);
+        }
     }
 }

@@ -1,5 +1,53 @@
-﻿<h3>EditHomeWork</h3>
+﻿@page "/editHomeWork/{Id:int}"
+@inherits EditHomeWorkBase
 
-@code {
+<div class="border">
+    <div class="card-header">
+        <h1 class="text-center">Edit Home Work Details of @HomeWork.StudentName</h1>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Subject Name</th>
+                    <th>Subject Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Scores)
+                {
+                    <tr>
+                        <td>
+                            <h5 class="mt-3">
+                                <strong>@item.SubjectName</strong>
+                            </h5>
+                        </td>
+                        <td>
+                            <EditForm Model="Scores">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
+                                <div class="form-group">
+                                    <label for="NumberOfSubjects" class="form-label">Subject Score</label>
+                                    <InputNumber @bind-Value="item.SubjectScore" class="form-control" placeholder="Subject Score" />
+                                    <ValidationMessage For="@(() => item.SubjectScore)" />
+                                </div>
+                            </EditForm>
 
-}
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <button type="button" style="font-weight: bold" class="btn btn-primary btn-block" @onclick="UpdateHomeWork">
+            Edit
+            <i class="fas fa-angle-right right"></i>
+        </button>
+        <button type="button" style="font-weight: bold" class="btn btn-secondary btn-block" @onclick="Cancel">
+            Cancel
+            <i class="fas fa-angle-right right"></i>
+        </button>
+    </div>
+</div>

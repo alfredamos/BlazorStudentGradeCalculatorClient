@@ -8,6 +8,8 @@
 
 @if (ShowMainForm)
 {
+    ShowHWCounter = false;
+
     <EditForm Model="HomeWork">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -32,7 +34,8 @@
         @if (!ShowHWInput)
         {
             <h5>Enter the next subject No: @KounterNumbOfSubjects</h5>
-            //HomeWork = new HomeWorkView();
+            
+            Score.SubjectName = "";
 
         }
         <div class="form-group">
@@ -61,7 +64,10 @@
 
 @if (ShowComponent)
 {
-    //Score = new HWScoreView();
+    if (ShowHWCounter)
+    {
+        <h5>Enter Home Work No: @KounterNumbOfHomeWork</h5>
+    }
 
     <HomeWorkForm Score="Score" Enter="@(() => Proceed(Score))" Finish="Back" HideButton="HideButtons" CreateHW="@(() => CreateHomeWork(Score))"
                   CancelMethod="Cancel" UpsertButton="Create" CancelButton="Cancel" />

@@ -29,8 +29,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.Examms
         public List<Examm> ExammsT { get; set; } = new List<Examm>();
 
         protected async override Task OnInitializedAsync()
-        {
-            Console.WriteLine("In ExammDetail : " + SchoolId);
+        {           
             ExammsT = (await ExammService.Search(SchoolId)).ToList();
            
 
