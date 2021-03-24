@@ -1,65 +1,82 @@
 ﻿@page "/listExamms"
 @inherits ListExammsBase
 
-<br />
 
-<h1 class="card-header text-center">List of Examms Scores</h1>
+<div class="border">
 
-<br />
+    <div class="card-header text-center">
+        <h1>List of Examms Scores</h1>
+    </div>
 
 
-@foreach (var itema in Examms)
-{
-    if (itema.SchoolIdNumber != ExampTemp.SchoolIdNumber)
+
+
+    @foreach (var itema in Examms)
     {
-        var examms = Examms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
-        
-        <table class="table table-bordered">
+        if (itema.SchoolIdNumber != ExampTemp.SchoolIdNumber)
+        {
+            var examms = Examms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
 
-            <thead>
-                <tr>
-                    <th><a href="@($"/exammDetail/{examms[0].SchoolIdNumber}")" style="font-weight: bold">School ID          : @examms[0].SchoolIdNumber</a></th>
-                    <th><a href="@($"/exammDetail/{examms[0].SchoolIdNumber}")" style="font-weight: bold">Student Name       : @examms[0].StudentName</a></th>
-                    <th><a href="@($"/exammDetail/{examms[0].SchoolIdNumber}")" style="font-weight: bold">Number of Subjects : @examms[0].NumberOfSubjects</a></th>
-                    <th></th>
-                </tr>
-                <tr>                    
-                    <th>Subject</th>
-                    <th>Score</th>
-                    <th>Grade</th>
-                    <th>Action</th>                   
-                </tr>
-            </thead>
-            <tbody>
+            <div class="card-body">
+                <table class="table table-bordered">
 
-                @foreach (var item in examms)
-                {
-                    <tr>                        
-                        <td>@item.SubjectName</td>
-                        <td>@item.SubjectScore</td>
-                        <td>@item.SubjectScoreInLetter</td>
-                        <td>
-                            <a class="btn btn-warning" href="@($"/editExamm/{item.ExammID}")" style="font-weight: bold">
-                                <i class="oi oi-pencil">Edit</i>
-                            </a>
-                            <a class="btn btn-danger" href="@($"/deleteExamm/{item.ExammID}")" style="font-weight: bold">
-                                <i class="oi oi-delete">Delete</i>
-                            </a>
-                        </td>
-                        
-                    </tr>
-                }
+                    <thead>
+                        <tr>
+                            <th><a href="@($"/exammDetail/{examms[0].SchoolIdNumber}")" style="font-weight: bold">School ID          : @examms[0].SchoolIdNumber</a></th>
+                            <th><a href="@($"/exammDetail/{examms[0].SchoolIdNumber}")" style="font-weight: bold">Student Name       : @examms[0].StudentName</a></th>
+                            <th><a href="@($"/exammDetail/{examms[0].SchoolIdNumber}")" style="font-weight: bold">Number of Subjects : @examms[0].NumberOfSubjects</a></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in examms)
+                        {
+                            <tr>
+                                <td>@item.SubjectName</td>
+                                <td>@item.SubjectScore</td>
+                                <td>@item.SubjectScoreInLetter</td>
+                                <td>
+                                    <a class="btn btn-warning" href="@($"/editExamm/{item.ExammID}")" style="font-weight: bold">
+                                        <i class="oi oi-pencil">Edit</i>
+                                    </a>
+                                    <a class="btn btn-danger" href="@($"/deleteExamm/{item.ExammID}")" style="font-weight: bold">
+                                        <i class="oi oi-delete">Delete</i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        }
 
 
-            </tbody>
+                    </tbody>
 
 
-        </table>
-        <br />
+                </table>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary btn-block" href="@($"/exammDetail/{itema.SchoolIdNumber}")" style="font-weight: bold">
+                    @itema.StudentName's Detail Scores
+                </a>
+            </div>
+            <br />
+        }
+        ExampTemp = itema;
     }
-    ExampTemp = itema;
-}
 
-<div class="colspan-md-3">
-    <a href="addExamms" class="btn btn-outline-secondary" style="font-weight: bold">Create Examm</a>
 </div>
+
+<br />
+
+
+<div class="card-footer">
+    <a href="addExamms" class="btn btn-secondary btn-block" style="font-weight: bold">Create Examm</a>
+</div>
+<br />
+<br />

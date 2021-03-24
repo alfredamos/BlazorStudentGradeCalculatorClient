@@ -29,9 +29,11 @@ namespace BlazorStudentGradeCalculatorClient.Client
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorStudentGradeCalculatorClient.ServerAPI"));
 
+            builder.Services.AddScoped<ICourseDetailService, CourseDetailService>();
             builder.Services.AddScoped<IExammService, ExammService>();
             builder.Services.AddScoped<IHomeWorkService, HomeWorkService>();
             builder.Services.AddScoped<IMidTermService, MidTermService>();
+            builder.Services.AddScoped<IOverallGradeService, OverallGradeService>();
             builder.Services.AddScoped<IScoreService, ScoreService>();
             builder.Services.AddScoped<IStudentService, StudentService>();
 

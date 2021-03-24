@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace BlazorStudentGradeCalculatorClient.Shared.Models
 {
-    public class Examm
+    public class OverallGrade
     {
-        public int ExammID { get; set; }
+        public int OverallGradeID { get; set; }
         public string SchoolIdNumber { get; set; }
         public string StudentName { get; set; }
         public string SubjectName { get; set; }
         public double SubjectScore { get; set; }
         public string SubjectScoreInLetter { get; set; }
         public int NumberOfSubjects { get; set; }
+        //public Examm Examm { get; set; }
+        //public MidTerm MidTerm { get; set; }
+        //public HomeWork HomeWork { get; set; }
 
-        public int? StudentID  { get; set; }
+        public int? StudentID { get; set; }
         public Student Student { get; set; }
-
-        //public int? OverallGradeID { get; set; }
-        //public OverallGrade OverallGrade { get; set; }
     }
 }

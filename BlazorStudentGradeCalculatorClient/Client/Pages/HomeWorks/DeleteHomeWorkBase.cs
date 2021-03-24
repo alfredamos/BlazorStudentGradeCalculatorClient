@@ -79,29 +79,35 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.HomeWorks
             if (deleteConfirmed)
             {
                 await ScoreService.DeleteEntity(Score.HWScoreID);
-
-                if (Score != null) await UpdatedHomeWork(Score);
+                
+                await UpdatedHomeWork(Score);               
 
             }
-
-            NavigationManager.NavigateTo("/listHomeWorks");
-
+           
         }
 
         private async Task UpdatedHomeWork(HWScoreView score)
         {
             Scores.Remove(score);
-            HomeWork.Scores = Scores;
-            HomeWork.NumberOfHomeWorks = Scores.Count;
-            var averageScore = Utility.AverageScoreCalculator(Scores);
-            HomeWork.SubjectScore = averageScore;
-            HomeWork.SubjectScoreInLetter = Utility.GradeFetcher(averageScore);
-            HomeWorks.Add(HomeWork);
 
-            Mapper.Map(HomeWorks, HomeWorksT);
+            if (Scores.Count != 0)
+            {
+                HomeWork.Scores = Scores;
+                Console.WriteLine();
+                HomeWork.NumberOfHomeWorks = Scores.Count;
+                var averageScore = Utility.AverageScoreCalculator(Scores);
+                HomeWork.SubjectScore = averageScore;
+                HomeWork.SubjectScoreInLetter = Utility.GradeFetcher(averageScore);
+                HomeWorks.Add(HomeWork);
 
-            await HomeWorkService.UpdateEntities(HomeWorksT);
+                Mapper.Map(HomeWorks, HomeWorksT);
 
+                await HomeWorkService.UpdateEntities(HomeWorksT);
+
+            }
+            else           
+                await HomeWorkService.DeleteEntity(Id);                
+         
             NavigationManager.NavigateTo("/listHomeWorks");
         }
 

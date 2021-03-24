@@ -8,12 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorStudentGradeCalculatorClient.Client.Pages.MidTerms
+namespace BlazorStudentGradeCalculatorClient.Client.Pages.OverallGrades
 {
-    public class MidtermDetailBase : ComponentBase
+    public class OverallGradeDetailBase : ComponentBase
     {
         [Inject]
-        public IMidTermService MidTermService { get; set; }
+        public IOverallGradeService OverallGradeService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -24,16 +24,15 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.MidTerms
         [Parameter]
         public string SchoolId { get; set; }
 
-        public List<MidTermView> MidTerms { get; set; } = new List<MidTermView>();
+        public List<OverallGrade> OverallGradesDB { get; set; } = new List<OverallGrade>();
 
-        public List<MidTerm> MidTermsDB { get; set; } = new List<MidTerm>();
+        public List<OverallGradeView> OverallGrades { get; set; } = new List<OverallGradeView>();
 
         protected async override Task OnInitializedAsync()
-        {            
-            MidTermsDB = (await MidTermService.Search(SchoolId)).ToList();
+        {
+            OverallGradesDB = (await OverallGradeService.Search(SchoolId)).ToList();
 
-
-            Mapper.Map(MidTermsDB, MidTerms);
+            Mapper.Map(OverallGradesDB, OverallGrades);
         }
     }
 }

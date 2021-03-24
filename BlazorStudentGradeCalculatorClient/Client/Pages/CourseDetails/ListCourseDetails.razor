@@ -1,0 +1,47 @@
+﻿@page "/listCourseDetails"
+@inherits ListCourseDetailsBase
+
+<div class="border">
+    <div class="card-header">
+        <h1>List of Course Details</h1>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-stripped">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Weight</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in CourseDetails)
+                {
+                    <tr>
+                        <td><a href="@($"/detailCourseDetail/{item.CourseDetailID}")">@item.SubjectName</a></td>
+                        <td><a href="@($"/detailCourseDetail/{item.CourseDetailID}")">@item.SubjectWeight</a></td>
+                        <td><a href="@($"/detailCourseDetail/{item.CourseDetailID}")">@item.Category</a></td>
+                        <td><a href="@($"/detailCourseDetail/{item.CourseDetailID}")">@item.Status</a></td>
+                        <td>
+                            <a class="btn btn-warning" href="@($"/editCourseDetail/{item.CourseDetailID}")" style="font-weight:bold">
+                                <i class="oi oi-pencil">
+                                    Edit
+                                </i>
+                            </a>
+                            <a class="btn btn-danger" href="@($"/deleteCourseDetail/{item.CourseDetailID}")" style="font-weight:bold">
+                                <i class="oi oi-delete">
+                                    Delete
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-secondary btn-block" href="addCourseDetail" style="font-weight:bold">Create Course Detail</a>
+    </div>
+</div>

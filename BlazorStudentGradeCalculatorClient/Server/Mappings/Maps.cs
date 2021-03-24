@@ -11,11 +11,13 @@ namespace BlazorStudentGradeCalculatorClient.Server.Mappings
     {
         public Maps()
         {
+            CreateMap<CourseDetail, CourseDetail>();
             CreateMap<Examm, Examm>();
             CreateMap<HomeWork, HomeWork>();
             CreateMap<MidTerm, MidTerm>();
             CreateMap<Student, Student>();
             CreateMap<HWScore, HWScore>();
+            CreateMap<OverallGrade, OverallGrade>();
         }
     }
 }

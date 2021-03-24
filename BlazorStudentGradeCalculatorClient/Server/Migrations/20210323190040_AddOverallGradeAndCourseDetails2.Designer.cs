@@ -4,14 +4,16 @@ using BlazorStudentGradeCalculatorClient.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazorStudentGradeCalculatorClient.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210323190040_AddOverallGradeAndCourseDetails2")]
+    partial class AddOverallGradeAndCourseDetails2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,6 +120,9 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                     b.Property<int>("NumberOfSubjects")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OverallGradeID")
+                        .HasColumnType("int");
+
                     b.Property<string>("SchoolIdNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -137,6 +142,10 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ExammID");
+
+                    b.HasIndex("OverallGradeID")
+                        .IsUnique()
+                        .HasFilter("[OverallGradeID] IS NOT NULL");
 
                     b.HasIndex("StudentID");
 
@@ -182,6 +191,9 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                     b.Property<int>("NumberOfSubjects")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OverallGradeID")
+                        .HasColumnType("int");
+
                     b.Property<string>("SchoolIdNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -202,6 +214,10 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
 
                     b.HasKey("HomeWorkID");
 
+                    b.HasIndex("OverallGradeID")
+                        .IsUnique()
+                        .HasFilter("[OverallGradeID] IS NOT NULL");
+
                     b.HasIndex("StudentID");
 
                     b.ToTable("HomeWorks");
@@ -215,6 +231,9 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("NumberOfSubjects")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OverallGradeID")
                         .HasColumnType("int");
 
                     b.Property<string>("SchoolIdNumber")
@@ -236,6 +255,10 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MidTermID");
+
+                    b.HasIndex("OverallGradeID")
+                        .IsUnique()
+                        .HasFilter("[OverallGradeID] IS NOT NULL");
 
                     b.HasIndex("StudentID");
 
@@ -541,9 +564,15 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Examm", b =>
                 {
+                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.OverallGrade", "OverallGrade")
+                        .WithOne("Examm")
+                        .HasForeignKey("BlazorStudentGradeCalculatorClient.Shared.Models.Examm", "OverallGradeID");
+
                     b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
                         .WithMany("Examms")
                         .HasForeignKey("StudentID");
+
+                    b.Navigation("OverallGrade");
 
                     b.Navigation("Student");
                 });
@@ -559,18 +588,30 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", b =>
                 {
+                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.OverallGrade", "OverallGrade")
+                        .WithOne("HomeWork")
+                        .HasForeignKey("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", "OverallGradeID");
+
                     b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
                         .WithMany("HomeWorks")
                         .HasForeignKey("StudentID");
+
+                    b.Navigation("OverallGrade");
 
                     b.Navigation("Student");
                 });
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.MidTerm", b =>
                 {
+                    b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.OverallGrade", "OverallGrade")
+                        .WithOne("MidTerm")
+                        .HasForeignKey("BlazorStudentGradeCalculatorClient.Shared.Models.MidTerm", "OverallGradeID");
+
                     b.HasOne("BlazorStudentGradeCalculatorClient.Shared.Models.Student", "Student")
                         .WithMany("MidTerms")
                         .HasForeignKey("StudentID");
+
+                    b.Navigation("OverallGrade");
 
                     b.Navigation("Student");
                 });
@@ -638,6 +679,15 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.HomeWork", b =>
                 {
                     b.Navigation("Scores");
+                });
+
+            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.OverallGrade", b =>
+                {
+                    b.Navigation("Examm");
+
+                    b.Navigation("HomeWork");
+
+                    b.Navigation("MidTerm");
                 });
 
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.Student", b =>

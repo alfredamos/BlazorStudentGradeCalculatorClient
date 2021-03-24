@@ -1,0 +1,25 @@
+﻿@page "/addOverallGrade"
+@inherits AddOverallGradeBase
+
+<div class="border">
+    <div class="card-header">
+        <h5>Overall Grade Form</h5>
+    </div>
+    <div class="card-body">
+        <EditForm Model="OverallGrade">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label for="SubjectName" class="form-label">Student Id Number</label>
+                <InputText @bind-Value="OverallGrade.SchoolIdNumber" class="form-control" placeholder="Student ID Number" />
+                <ValidationMessage For="() => OverallGrade.SchoolIdNumber" />
+            </div>           
+        </EditForm>
+    </div>
+    <div class="card-footer">
+        <div class="form-group">
+            <button type="button" class="btn btn-outline-info btn-block" @onclick="CreateOverallGrade" style="font-weight: bold">Create</button>
+            <button type="button" class="btn btn-outline-info btn-block" @onclick="Cancel" style="font-weight: bold">Cancel</button>
+        </div>
+    </div>
+</div>

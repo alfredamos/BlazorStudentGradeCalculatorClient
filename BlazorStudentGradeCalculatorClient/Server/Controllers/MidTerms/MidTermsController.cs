@@ -160,7 +160,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.Controllers.MidTerms
         }
 
         // DELETE: api/MidTerms/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult<MidTerm>> DeleteMidTerm(int id)
         {
             try

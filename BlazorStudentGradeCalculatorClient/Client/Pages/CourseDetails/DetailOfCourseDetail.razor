@@ -1,0 +1,35 @@
+﻿@page "/detailCourseDetail/{Id:int}"
+@inherits DetailOfCourseDetailBase
+
+<div class="border" style="width:50%">
+    <div class="card-header">
+        <h5>Delete Course Details</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td><a href="/listCourseDetails">Subject : @CourseDetail.SubjectName</a></td>
+                </tr>
+                <tr>
+                    <td><a href="/listCourseDetails">Weight : @CourseDetail.SubjectWeight</a></td>
+                </tr>
+                <tr>
+                    <td><a href="/listCourseDetails">Category : @CourseDetail.Category</a></td>
+                </tr>
+                <tr>
+                    <td><a href="/listCourseDetails">Status : @CourseDetail.Status</a></td>
+              
+                </tr>                
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-warning btn-block" href="@($"/editCourseDetail/{CourseDetail.CourseDetailID}")" style="font-weight: bold">
+            <i class="oi oi-pencil">Edit</i>
+        </a>
+        <a class="btn btn-danger btn-block" href="@($"/deleteCourseDetail/{CourseDetail.CourseDetailID}")" style="font-weight: bold">
+            <i class="oi oi-delete">Delete</i>
+        </a>
+    </div>
+</div>

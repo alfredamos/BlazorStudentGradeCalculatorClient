@@ -1,56 +1,64 @@
 ﻿@page "/exammDetail/{SchoolId}"
 @inherits ExammDetailBase
 
-<br />
+<div class="border">
+    <div class="card-header text-center">
 
-<h1 class="card-header text-center">Detail of Examms Scores</h1>
+        <h1>Detail of Examms Scores</h1>
 
-<br />
-
-
-
-<table class="table table-bordered">
-
-    <thead>
-       
-    </thead>
-    <tbody>
-
-        @foreach (var item in Examms)
-        {
-            if (Examms[Examms.FindIndex(ind => ind.Equals(item))] == Examms[0])
-            {
-                <tr>
-                    <th><a href="@("/listExamms")" style="font-weight: bold">School ID          : @Examms[0].SchoolIdNumber</a></th>
-                    <th><a href="@("/listExamms")" style="font-weight: bold">Student Name       : @Examms[0].StudentName</a></th>
-                    <th><a href="@("/listExamms")" style="font-weight: bold">Number of Subjects : @Examms[0].NumberOfSubjects</a></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th>Subject</th>
-                    <th>Score</th>
-                    <th>Grade</th>
-                    <th>Action</th>
-                </tr>
-
-            }
-            <tr>
-                <td>@item.SubjectName</td>  
-                <td>@item.SubjectScore</td>
-                <td>@item.SubjectScoreInLetter</td>
-                <td>
-                    <a class="btn btn-warning" href="@($"/editExamm/{item.ExammID}")" style="font-weight: bold">
-                        <i class="oi oi-pencil">Edit</i>
-                    </a>
-                    <a class="btn btn-danger" href="@($"/deleteExamm/{item.ExammID}")" style="font-weight: bold">
-                        <i class="oi oi-delete">Delete</i>
-                    </a>
-                </td>
-            </tr>
-        }
+    </div>
+    <div class="card-body">
 
 
-    </tbody>
+        <table class="table table-bordered">
+
+            <thead>
+
+            </thead>
+            <tbody>
+
+                @foreach (var item in Examms)
+                {
+                    if (Examms[Examms.FindIndex(ind => ind.Equals(item))] == Examms[0])
+                    {
+                        <tr>
+                            <th><a href="@("/listExamms")" style="font-weight: bold">School ID          : @Examms[0].SchoolIdNumber</a></th>
+                            <th><a href="@("/listExamms")" style="font-weight: bold">Student Name       : @Examms[0].StudentName</a></th>
+                            <th><a href="@("/listExamms")" style="font-weight: bold">Number of Subjects : @Examms[0].NumberOfSubjects</a></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                            <th>Action</th>
+                        </tr>
+
+                    }
+                    <tr>
+                        <td>@item.SubjectName</td>
+                        <td>@item.SubjectScore</td>
+                        <td>@item.SubjectScoreInLetter</td>
+                        <td>
+                            <a class="btn btn-warning" href="@($"/editExamm/{item.ExammID}")" style="font-weight: bold">
+                                <i class="oi oi-pencil">Edit</i>
+                            </a>
+                            <a class="btn btn-danger" href="@($"/deleteExamm/{item.ExammID}")" style="font-weight: bold">
+                                <i class="oi oi-delete">Delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                }
 
 
-</table>
+            </tbody>
+
+
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary btn-block" href="@($"/listExamms")" style="font-weight: bold">
+            Back to List
+        </a>
+    </div>
+</div>

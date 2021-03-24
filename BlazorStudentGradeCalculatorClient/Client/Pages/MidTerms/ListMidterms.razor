@@ -1,65 +1,76 @@
 ﻿@page "/listMidterms"
 @inherits ListMidtermsBase
 
-<br />
+    <div class="border">
+        <div class="card-header text-center">
+            <h1>List of MidTerms Scores</h1>
 
-<h1 class="card-header text-center">List of MidTerms Scores</h1>
-
-<br />
-
-
-@foreach (var itema in MidTerms)
-{
-    if (itema.SchoolIdNumber != MidTermTemp.SchoolIdNumber)
-    {
-        var midTerms = MidTerms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
-
-        <table class="table table-bordered">
-
-            <thead>
-                <tr>
-                    <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">School ID          : @midTerms[0].SchoolIdNumber</a></th>
-                    <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">Student Name       : @midTerms[0].StudentName</a></th>
-                    <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">Number of Subjects : @midTerms[0].NumberOfSubjects</a></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th>Subject</th>
-                    <th>Score</th>
-                    <th>Grade</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var item in midTerms)
-                {
-                    <tr>
-                        <td>@item.SubjectName</td>
-                        <td>@item.SubjectScore</td>
-                        <td>@item.SubjectScoreInLetter</td>
-                        <td>
-                            <a class="btn btn-warning" href="@($"/editMidterm/{item.MidTermID}")" style="font-weight: bold">
-                                <i class="oi oi-pencil">Edit</i>
-                            </a>
-                            <a class="btn btn-danger" href="@($"/deleteMidterm/{item.MidTermID}")" style="font-weight: bold">
-                                <i class="oi oi-delete">Delete</i>
-                            </a>
-                        </td>
-
-                    </tr>
-                }
+        </div>
 
 
-            </tbody>
+        @foreach (var itema in MidTerms)
+        {
+            if (itema.SchoolIdNumber != MidTermTemp.SchoolIdNumber)
+            {
+                var midTerms = MidTerms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+
+                        <thead>
+                            <tr>
+                                <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">School ID          : @midTerms[0].SchoolIdNumber</a></th>
+                                <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">Student Name       : @midTerms[0].StudentName</a></th>
+                                <th><a href="@($"/midtermDetail/{midTerms[0].SchoolIdNumber}")" style="font-weight: bold">Number of Subjects : @midTerms[0].NumberOfSubjects</a></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Score</th>
+                                <th>Grade</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in midTerms)
+                            {
+                                <tr>
+                                    <td>@item.SubjectName</td>
+                                    <td>@item.SubjectScore</td>
+                                    <td>@item.SubjectScoreInLetter</td>
+                                    <td>
+                                        <a class="btn btn-warning" href="@($"/editMidterm/{item.MidTermID}")" style="font-weight: bold">
+                                            <i class="oi oi-pencil">Edit</i>
+                                        </a>
+                                        <a class="btn btn-danger" href="@($"/deleteMidterm/{item.MidTermID}")" style="font-weight: bold">
+                                            <i class="oi oi-delete">Delete</i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            }
 
 
-        </table>
-        <br />
-    }
-    MidTermTemp = itema;
-}
+                        </tbody>
 
-<div class="colspan-md-3">
-    <a href="addMidterm" class="btn btn-outline-secondary" style="font-weight: bold">Create MidTerm</a>
-</div>
+
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary btn-block" href="@($"/midtermDetail/{itema.SchoolIdNumber}")" style="font-weight: bold">
+                        @itema.StudentName's Detail Scores
+                    </a>
+                </div>
+            }
+            MidTermTemp = itema;
+        }
+    </div>
+    <br />
+
+
+    <div class="card-footer">
+        <a href="addMidterm" class="btn btn-secondary btn-block" style="font-weight: bold">Create MidTerm</a>
+    </div>
+    <br />
+    <br />

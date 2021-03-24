@@ -44,14 +44,15 @@ namespace BlazorStudentGradeCalculatorClient.Client.Helpers
         {
             var sum = 0.0;
             var totalNumb = 0;
-
+  
             foreach (var item in scores)
             {
                 sum += item.SubjectScore;
                 totalNumb += 1;
+                if (scores[scores.FindIndex(x => x.Equals(item))] == scores[0])
+                    SubjectName = item.SubjectName;
 
-            }
-            SubjectName = scores[0].SubjectName;
+            }            
             return sum / totalNumb;
         }
 

@@ -26,14 +26,17 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data
             builder.ApplyConfiguration(new HomeWorkEntityConfiguration());
             builder.ApplyConfiguration(new MidTermEntityConfiguration());
             builder.ApplyConfiguration(new HWScoreEntityConfiguration());
+            builder.ApplyConfiguration(new OverallGradeConfiguration());
 
             base.OnModelCreating(builder);
         }
 
+        public DbSet<CourseDetail> CourseWeights { get; set; }
         public DbSet<Examm> Examms { get; set; }
         public DbSet<HomeWork> HomeWorks { get; set; }
         public DbSet<MidTerm> MidTerms { get; set; }
-        public DbSet<HWScore> HWScores { get; set; }       
+        public DbSet<HWScore> HWScores { get; set; }
+        public DbSet<OverallGrade> OverallGrades { get; set; }
         public DbSet<Student> Students { get; set; }
     }
 }

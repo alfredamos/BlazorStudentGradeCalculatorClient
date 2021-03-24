@@ -21,5 +21,8 @@ namespace BlazorStudentGradeCalculatorClient.Shared.Models
 
         public int? StudentID { get; set; }
         public Student Student { get; set; }
+
+        //public int? OverallGradeID { get; set; }
+        //public OverallGrade OverallGrade { get; set; }
     }
 }

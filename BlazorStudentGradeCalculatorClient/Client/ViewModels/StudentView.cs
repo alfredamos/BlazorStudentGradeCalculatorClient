@@ -19,6 +19,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
         public List<ExammView> Examms { get; set; }
         public List<HomeWorkView> HomeWorks { get; set; }
         public List<MidTermView> MidTerms { get; set; }
+        public List<OverallGradeView> OverallGrades { get; set; }
 
     }
 }

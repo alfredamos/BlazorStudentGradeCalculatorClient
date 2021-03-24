@@ -1,0 +1,75 @@
+﻿@page "/listOverallGrades"
+@inherits ListOverallGradesBase
+
+
+<div class="border">
+
+    <div class="card-header text-center">
+        <h1>List of OverallGrade Scores</h1>
+    </div>
+
+    @foreach (var itema in OverallGrades)
+    {
+        if (itema.SchoolIdNumber != OverallGradeTemp.SchoolIdNumber)
+        {
+            var overallGrades = OverallGrades.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+
+            <div class="card-body">
+                <table class="table table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th><a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">School ID          : @overallGrades[0].SchoolIdNumber</a></th>
+                            <th><a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">Student Name       : @overallGrades[0].StudentName</a></th>
+                            <th><a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">Number of Subjects : @overallGrades[0].NumberOfSubjects</a></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in overallGrades)
+                        {
+                            <tr>
+                                <td>@item.SubjectName</td>
+                                <td>@item.SubjectScore</td>
+                                <td>@item.SubjectScoreInLetter</td>
+                                <td>
+                                    <a class="btn btn-danger" href="@($"/deleteOverallGrade/{item.OverallGradeID}")" style="font-weight: bold">
+                                        <i class="oi oi-delete">Delete</i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+
+
+                </table>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary btn-block" href="@($"/overallGradeDetail/{itema.SchoolIdNumber}")" style="font-weight: bold">
+                    @itema.StudentName's Detail Scores
+                </a>
+            </div>
+
+        }
+        OverallGradeTemp = itema;
+    }
+
+</div>
+
+<br/>
+
+<div class="card-footer">
+    <a href="addOverallGrade" class="btn btn-secondary btn-block" style="font-weight: bold">Get Overall Grade</a>
+</div>
+<br />
+<br />

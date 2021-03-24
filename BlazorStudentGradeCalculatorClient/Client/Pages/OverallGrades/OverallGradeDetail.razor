@@ -1,15 +1,13 @@
-﻿@page "/midtermDetail/{SchoolId}"
-@inherits MidtermDetailBase
-
+﻿@page "/overallGradeDetail/{SchoolId}"
+@inherits OverallGradeDetailBase
 
 <div class="border">
     <div class="card-header text-center">
-
-        <h1>Detail of MidTerms Scores</h1>
+  
+        <h1>Detail of OverallGrade Scores</h1>
 
     </div>
     <div class="card-body">
-
         <table class="table table-bordered">
 
             <thead>
@@ -17,14 +15,14 @@
             </thead>
             <tbody>
 
-                @foreach (var item in MidTerms)
+                @foreach (var item in OverallGrades)
                 {
-                    if (MidTerms[MidTerms.FindIndex(ind => ind.Equals(item))] == MidTerms[0])
+                    if (OverallGrades[OverallGrades.FindIndex(ind => ind.Equals(item))] == OverallGrades[0])
                     {
                         <tr>
-                            <th><a href="@("/listMidterms")" style="font-weight: bold">School ID          : @MidTerms[0].SchoolIdNumber</a></th>
-                            <th><a href="@("/listMidterms")" style="font-weight: bold">Student Name       : @MidTerms[0].StudentName</a></th>
-                            <th><a href="@("/listMidterms")" style="font-weight: bold">Number of Subjects : @MidTerms[0].NumberOfSubjects</a></th>
+                            <th><a href="@("/listOverallGrades")" style="font-weight: bold">School ID          : @OverallGrades[0].SchoolIdNumber</a></th>
+                            <th><a href="@("/listOverallGrades")" style="font-weight: bold">Student Name       : @OverallGrades[0].StudentName</a></th>
+                            <th><a href="@("/listOverallGrades")" style="font-weight: bold">Number of Subjects : @OverallGrades[0].NumberOfSubjects</a></th>
                             <th></th>
                         </tr>
                         <tr>
@@ -40,10 +38,7 @@
                         <td>@item.SubjectScore</td>
                         <td>@item.SubjectScoreInLetter</td>
                         <td>
-                            <a class="btn btn-warning" href="@($"/editMidterm/{item.MidTermID}")" style="font-weight: bold">
-                                <i class="oi oi-pencil">Edit</i>
-                            </a>
-                            <a class="btn btn-danger" href="@($"/deleteMidterm/{item.MidTermID}")" style="font-weight: bold">
+                            <a class="btn btn-danger" href="@($"/deleteOverallGrade/{item.OverallGradeID}")" style="font-weight: bold">
                                 <i class="oi oi-delete">Delete</i>
                             </a>
                         </td>
@@ -56,7 +51,7 @@
         </table>
     </div>
     <div class="card-footer">
-        <a class="btn btn-primary btn-block" href="@($"/listMidterms")" style="font-weight: bold">
+        <a class="btn btn-primary btn-block" href="@($"/listOverallGrades")" style="font-weight: bold">
             Back to List
         </a>
     </div>

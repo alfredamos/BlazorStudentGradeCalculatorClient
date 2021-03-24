@@ -1,0 +1,59 @@
+﻿
+<div class="border">
+    <div class="card-header">
+        <h5>Course Detail Form</h5>
+    </div>
+    <div class="card-body">
+        <EditForm Model="CourseDetail">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label for="SubjectName" class="form-label">Subject Name</label>
+                <InputText @bind-Value="CourseDetail.SubjectName" class="form-control" placeholder="Subject Name" />
+                <ValidationMessage For="() => CourseDetail.SubjectName" />
+            </div>
+            <hr />
+            <div class="form-group">
+                <label for="SubjectWeight" class="form-label">Subject Weight</label>
+                <InputNumber @bind-Value="CourseDetail.SubjectWeight" class="form-control" placeholder="Subject Weight" />
+                <ValidationMessage For="() => CourseDetail.SubjectWeight" />
+            </div>
+            <hr />
+            <div class="form-group">
+                <label for="Category" class="form-label">Category</label>
+                <InputText @bind-Value="CourseDetail.Category" class="form-control" placeholder="Category" />
+                <ValidationMessage For="() => CourseDetail.Category" />
+            </div>
+            <hr />
+            <div class="form-group">
+                <label for="Status" class="form-label">Status</label>
+                <InputText @bind-Value="CourseDetail.Status" class="form-control" placeholder="Status" />
+                <ValidationMessage For="() => CourseDetail.Status" />
+            </div>
+        </EditForm>
+    </div>
+    <div class="card-footer">
+        <div class="form-group">
+            <button type="button" class="btn btn-outline-info btn-block" @onclick="UpsertCourseDetail" style="font-weight: bold">@UpsertButton</button>
+            <button type="button" class="btn btn-outline-info btn-block" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public CourseDetailView CourseDetail { get; set; }
+
+    [Parameter]
+    public EventCallback UpsertCourseDetail { get; set; }
+
+    [Parameter]
+    public EventCallback CancelMethod { get; set; }
+
+    [Parameter]
+    public string UpsertButton { get; set; }
+
+    [Parameter]
+    public string CancelButton { get; set; }
+
+}

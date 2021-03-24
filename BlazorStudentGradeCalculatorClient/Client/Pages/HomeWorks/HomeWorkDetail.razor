@@ -1,65 +1,74 @@
 ﻿@page "/homeWorkDetail/{SchoolId}"
 @inherits HomeWorkDetailBase
 
-<br />
 
-<h1 class="card-header text-center">Detail of Home Work Scores</h1>
+<div class="border">
+    <div class="card-header text-center">
 
-<br />
+        <h1>Detail of Home Work Scores</h1>
+
+    </div>
+    <div class="card-body">
 
 
+        <table class="table table-bordered">
 
-<table class="table table-bordered">
+            <thead>
 
-    <thead>
+            </thead>
+            <tbody>
 
-    </thead>
-    <tbody>
-
-        @foreach (var item in HomeWorks)
-        {
-            if (HomeWorks[HomeWorks.FindIndex(ind => ind.Equals(item))] == HomeWorks[0])
-            {
-                <tr>
-                    <th><a href="@("/listHomeWorks")" style="font-weight: bold">School ID          : @HomeWorks[0].SchoolIdNumber</a></th>
-                    <th><a href="@("/listHomeWorks")" style="font-weight: bold">Student Name       : @HomeWorks[0].StudentName</a></th>
-                    <th><a href="@("/listHomeWorks")" style="font-weight: bold">Number of Subjects : @HomeWorks[0].NumberOfSubjects</a></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <th>Subject</th>
-                    <th>Average Score</th>
-                    <th>Grade</th>
-                    <th>Home Works</th>
-                    <th>Action</th>
-                </tr>
-
-            }
-    <tr>
-        <td>@item.SubjectName</td>
-        <td>@item.SubjectScore</td>
-        <td>@item.SubjectScoreInLetter</td>
-        <td>
-            <ul>
-                @foreach (var hWorkScore in item.Scores)
+                @foreach (var item in HomeWorks)
                 {
-                    <li>@hWorkScore.SubjectName : @hWorkScore.SubjectScore</li>
+                    if (HomeWorks[HomeWorks.FindIndex(ind => ind.Equals(item))] == HomeWorks[0])
+                    {
+                        <tr>
+                            <th><a href="@("/listHomeWorks")" style="font-weight: bold">School ID          : @HomeWorks[0].SchoolIdNumber</a></th>
+                            <th><a href="@("/listHomeWorks")" style="font-weight: bold">Student Name       : @HomeWorks[0].StudentName</a></th>
+                            <th><a href="@("/listHomeWorks")" style="font-weight: bold">Number of Subjects : @HomeWorks[0].NumberOfSubjects</a></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Average Score</th>
+                            <th>Grade</th>
+                            <th>Home Works</th>
+                            <th>Action</th>
+                        </tr>
+
+                    }
+                    <tr>
+                        <td>@item.SubjectName</td>
+                        <td>@item.SubjectScore</td>
+                        <td>@item.SubjectScoreInLetter</td>
+                        <td>
+                            <ul>
+                                @foreach (var hWorkScore in item.Scores)
+                                {
+                                    <li>@hWorkScore.SubjectName : @hWorkScore.SubjectScore</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="@($"/editHomeWork/{item.HomeWorkID}")" style="font-weight: bold">
+                                <i class="oi oi-pencil">Edit</i>
+                            </a>
+                            <a class="btn btn-danger" href="@($"/deleteHomeWork/{item.HomeWorkID}")" style="font-weight: bold">
+                                <i class="oi oi-delete">Delete</i>
+                            </a>
+                        </td>
+                    </tr>
                 }
-            </ul>
-        </td>
-        <td>
-            <a class="btn btn-warning" href="@($"/editHomeWork/{item.HomeWorkID}")" style="font-weight: bold">
-                <i class="oi oi-pencil">Edit</i>
-            </a>
-            <a class="btn btn-danger" href="@($"/deleteHomeWork/{item.HomeWorkID}")" style="font-weight: bold">
-                <i class="oi oi-delete">Delete</i>
-            </a>
-        </td>
-    </tr>
-        }
 
 
-    </tbody>
+            </tbody>
 
 
-</table>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary btn-block" href="@($"/listHomeWorks")" style="font-weight: bold">
+            Back to List
+        </a>
+    </div>
+</div>

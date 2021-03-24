@@ -16,5 +16,6 @@ namespace BlazorStudentGradeCalculatorClient.Shared.Models
         public List<Examm> Examms { get; set; }
         public List<HomeWork> HomeWorks { get; set; }
         public List<MidTerm> MidTerms { get; set; }
+        public List<OverallGrade> OverallGrades { get; set; }
     }
 }
