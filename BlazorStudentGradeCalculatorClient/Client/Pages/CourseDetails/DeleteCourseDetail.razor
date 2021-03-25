@@ -1,9 +1,9 @@
 ﻿@page "/deleteCourseDetail/{Id:int}"
-@inherits DeleteCourseDetailBase
+@inherits DeleteCourseCreditBase
 
-<div class="border" style="width:50%">
-    <div class="card-header">
-        <h5>Delete Course Details</h5>
+<div class="border" style="width:50%; font-weight: bold">
+    <div class="card-header text-center">
+        <h4><strong>Delete Course Details</strong></h4>
     </div>
     <div class="card-body">
         <table class="table table-bordered table-striped">
@@ -27,7 +27,10 @@
     <div class="card-footer">
         <button class="btn btn-danger btn-block" @onclick="DeleteClick" style="font-weight: bold">
             <i class="oi oi-delete">Delete</i>
-        </button>        
+        </button>  
+        <a href="/listCourseDetails" class="btn btn-primary btn-block" style="font-weight: bold">
+            Back to List
+        </a>
     </div>
 </div>
 

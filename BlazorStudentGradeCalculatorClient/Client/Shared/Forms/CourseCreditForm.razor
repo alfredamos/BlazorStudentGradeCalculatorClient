@@ -1,0 +1,48 @@
+﻿
+
+<div class="border">
+    <div class="card-header">
+        <h5><strong>Course Credit Form</strong></h5>
+    </div>
+    <div class="card-body">
+        <EditForm Model="CourseCredit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label for="GradeLetter" class="form-label">Grade Letter</label>
+                <InputText @bind-Value="CourseCredit.GradeLetter" class="form-control" placeholder="Grade in Letter" />
+                <ValidationMessage For="() => CourseCredit.GradeLetter" />
+            </div>
+            <hr />
+            <div class="form-group">
+                <label for="GradeCredit" class="form-label">Grade Credit</label>
+                <InputNumber @bind-Value="CourseCredit.GradeCredit" class="form-control" placeholder="Grade Credit" />
+                <ValidationMessage For="() => CourseCredit.GradeCredit" />
+            </div>            
+        </EditForm>
+    </div>
+    <div class="card-footer">
+        <div class="form-group">
+            <button type="button" class="btn btn-outline-info btn-block" @onclick="UpsertCourseCredit" style="font-weight: bold">@UpsertButton</button>
+            <button type="button" class="btn btn-outline-info btn-block" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public CourseCreditView CourseCredit { get; set; }
+
+    [Parameter]
+    public EventCallback UpsertCourseCredit { get; set; }
+
+    [Parameter]
+    public EventCallback CancelMethod { get; set; }
+
+    [Parameter]
+    public string UpsertButton { get; set; }
+
+    [Parameter]
+    public string CancelButton { get; set; }
+}

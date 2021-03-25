@@ -54,8 +54,8 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
                 return await _context.Students.ToListAsync();
             }
 
-            return await _context.Students.Include(st => st.Examms).Include(st => st.MidTerms)
-                         .Include(st => st.HomeWorks).Where(st => st.SchoolIdNumber.Contains(searchKey) ||
+            return await _context.Students.Include(st => st.Examms).Include(st => st.HomeWorks)
+                        .Include(st => st.MidTerms).Include(x => x.OverallGrades).Where(st => st.SchoolIdNumber.Contains(searchKey) ||
                          st.StudentName.Contains(searchKey) || st.Examms.Any(x => x.SubjectName.Contains(searchKey)) ||
                          st.Examms.Any(x => x.SubjectScoreInLetter.Contains(searchKey)) ||
                          st.HomeWorks.Any(st => st.Scores.Any(x => x.SubjectName.Contains(searchKey))) ||
@@ -66,13 +66,15 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
         public async Task<IEnumerable<Student>> GetAll()
         {         
-            return await _context.Students.ToListAsync();
+            return await _context.Students.Include(st => st.Examms).Include(st => st.HomeWorks)
+                        .Include(st => st.MidTerms).Include(x => x.OverallGrades).ToListAsync();
             
         }
 
         public async Task<Student> GetById(int id)
         {
-            return await _context.Students.Include(st => st.Examms).Include(st => st.HomeWorks).Include(st => st.MidTerms)
+            return await _context.Students.Include(st => st.Examms).Include(st => st.HomeWorks)
+                        .Include(st => st.MidTerms).Include(x => x.OverallGrades)
                          .FirstOrDefaultAsync(st => st.StudentID == id);
         }
 
@@ -94,7 +96,8 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
         public async Task UpdateEntities(List<Student> students)
         {
-            _context.Students.UpdateRange(students);
+            //_context.Students.UpdateRange(students);
+            _context.Students.AttachRange(students);
             await _context.SaveChangesAsync();
         }
     }

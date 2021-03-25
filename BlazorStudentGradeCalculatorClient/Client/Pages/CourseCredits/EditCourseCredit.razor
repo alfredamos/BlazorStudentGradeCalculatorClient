@@ -1,0 +1,6 @@
+﻿@page "/editCourseCredit/{Id:int}"
+@inherits EditCourseCreditBase
+
+
+<CourseCreditForm CourseCredit="CourseCredit" UpsertCourseCredit="UpdateCourseCredit" CancelMethod="Cancel"
+                  UpsertButton="Save" CancelButton="Cancel" />

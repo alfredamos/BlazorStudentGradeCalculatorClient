@@ -1,0 +1,43 @@
+﻿@page "/listCourseCredits"
+@inherits ListCourseCreditsBase
+
+<div class="border">
+    <div class="card-header text-center">
+        <h1>List of Course Credits</h1>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-stripped">
+            <thead>
+                <tr>
+                    <th>Grade Letter</th>
+                    <th>Grade Credit</th>                   
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in CourseCredits)
+                {
+                    <tr>
+                        <td><a href="@($"/detailCourseCredit/{item.CourseCreditID}")">@item.GradeLetter</a></td>
+                        <td><a href="@($"/detailCourseCredit/{item.CourseCreditID}")">@item.GradeCredit</a></td>                       
+                        <td>
+                            <a class="btn btn-warning" href="@($"/editCourseCredit/{item.CourseCreditID}")" style="font-weight:bold">
+                                <i class="oi oi-pencil">
+                                    Edit
+                                </i>
+                            </a>
+                            <a class="btn btn-danger" href="@($"/deleteCourseCredit/{item.CourseCreditID}")" style="font-weight:bold">
+                                <i class="oi oi-delete">
+                                    Delete
+                                </i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-outline-dark btn-block" href="addCourseCredit" style="font-weight:bold">Create Course Credit</a>
+    </div>
+</div>

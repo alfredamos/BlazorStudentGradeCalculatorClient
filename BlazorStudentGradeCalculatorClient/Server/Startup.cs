@@ -57,6 +57,7 @@ namespace BlazorStudentGradeCalculatorClient.Server
 
             services.AddRazorPages();
 
+            services.AddScoped<ICourseCreditRepository, SQLCourseCreditRepository>();
             services.AddScoped<ICourseDetailsRepository, SQLCourseDetailsRepository>();
             services.AddScoped<IExammRepository, SQLExammRepository>();
             services.AddScoped<IHomeWorkRepository, SQLHomeWorkRepository>();

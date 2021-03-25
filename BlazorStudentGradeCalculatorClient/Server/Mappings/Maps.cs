@@ -11,6 +11,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.Mappings
     {
         public Maps()
         {
+            CreateMap<CourseCredit, CourseCredit>();
             CreateMap<CourseDetail, CourseDetail>();
             CreateMap<Examm, Examm>();
             CreateMap<HomeWork, HomeWork>();

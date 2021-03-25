@@ -84,6 +84,24 @@ namespace BlazorStudentGradeCalculatorClient.Server.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.CourseCredit", b =>
+                {
+                    b.Property<int>("CourseCreditID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("GradeCredit")
+                        .HasColumnType("float");
+
+                    b.Property<string>("GradeLetter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CourseCreditID");
+
+                    b.ToTable("CourseCredits");
+                });
+
             modelBuilder.Entity("BlazorStudentGradeCalculatorClient.Shared.Models.CourseDetail", b =>
                 {
                     b.Property<int>("CourseDetailID")

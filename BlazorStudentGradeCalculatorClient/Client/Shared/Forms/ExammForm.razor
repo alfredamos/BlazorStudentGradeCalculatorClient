@@ -1,44 +1,56 @@
 ﻿
 
-<EditForm Model="Examm">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
 
-    <div class="form-group">
-        <label for="SubjectName" class="form-label">Subject Name</label>
-        <InputText @bind-Value="Examm.SubjectName" class="form-control" placeholder="Subject Name" />
-        <ValidationMessage For="@(() => Examm.SubjectName)" />
+    <div class="card-body">
+        <EditForm Model="Examm">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <hr />
+
+            <div class="form-group">
+                <label for="SubjectName" class="form-label">Subject Name</label>
+                <InputText @bind-Value="Examm.SubjectName" class="form-control" placeholder="Subject Name" />
+                <ValidationMessage For="@(() => Examm.SubjectName)" />
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <label for="SubjectScore" class="form-label">Subject Score</label>
+                <InputNumber @bind-Value="Examm.SubjectScore" class="form-control" placeholder="Subject Score" />
+                <ValidationMessage For="@(() => Examm.SubjectScore)" />
+            </div>
+
+
+
+
+        </EditForm>
     </div>
-    <div class="form-group">
-        <label for="SubjectScore" class="form-label">Subject Score</label>
-        <InputNumber @bind-Value="Examm.SubjectScore" class="form-control" placeholder="Subject Score" />
-        <ValidationMessage For="@(() => Examm.SubjectScore)" />
-    </div>
-
-
-
-    @if (!HideButton)
-    {
+    <div class="card-footer">
         <div class="form-group">
-            <button type="button" class="btn btn-outline-info" @onclick="Proceed" style="font-weight: bold">Proceed</button>
-            <button type="button" class="btn btn-outline-info" @onclick="Finish" style="font-weight: bold">Cancel</button>
-        </div>
-    }
-    @if (HideButton)
-    {
-        <div class="form-group">
-            <button type="button" class="btn btn-outline-info" @onclick="UpsertExamm" style="font-weight: bold">@UpsertButton</button>
-            <button type="button" class="btn btn-outline-info" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
-        </div>
-    }
+            @if (!HideButton)
+            {
+                <div class="form-group">
+                    <button type="button" class="btn btn-outline-info btn-block" @onclick="Proceed" style="font-weight: bold">Proceed</button>
+                    <button type="button" class="btn btn-outline-info btn-block" @onclick="Finish" style="font-weight: bold">Cancel</button>
+                </div>
+            }
+            @if (HideButton)
+            {
+                <div class="form-group">
+                    <button type="button" class="btn btn-outline-info btn-block" @onclick="UpsertExamm" style="font-weight: bold">@UpsertButton</button>
+                    <button type="button" class="btn btn-outline-info btn-block" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
+                </div>
+            }
 
-</EditForm>
-
+        </div>
+ </div>
 
 @code {
     [Parameter]
     public ExammView Examm { get; set; }
-  
+
     [Parameter]
     public EventCallback Proceed { get; set; }
 
@@ -61,5 +73,5 @@
     public bool HideButton { get; set; } = false;
 
     public bool ShowForm { get; set; } = true;
-   
+
 }

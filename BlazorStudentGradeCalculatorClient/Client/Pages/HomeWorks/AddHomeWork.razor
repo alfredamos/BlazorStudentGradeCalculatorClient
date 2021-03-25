@@ -2,82 +2,97 @@
 @inherits AddHomeWorkBase
 
 
-<h1 class="card-header">Add Home Score</h1>
+<div class="border" style="width: 50%">
+    <div class="card-header text-center">
+        <h5><strong>Add Home Work Score</strong></h5>
+    </div>
 
-<hr />
+    <div class="card-body">
 
-@if (ShowMainForm)
-{
-    ShowHWCounter = false;
 
-    <EditForm Model="HomeWork">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        @if (ShowHWInput)
+        @if (ShowMainForm)
         {
+            ShowHWCounter = false;
+
+        <EditForm Model="HomeWork">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            @if (ShowHWInput)
+            {
+                <div class="form-group">
+                    <label for="SchoolIdNumber" class="form-label">School ID</label>
+                    <InputText @bind-Value="HomeWork.SchoolIdNumber" class="form-control" placeholder="School ID" />
+                    <ValidationMessage For="@(() => HomeWork.SchoolIdNumber)" />
+                </div>
+
+                <hr />
+
+                <div class="form-group">
+                    <label for="StudentName" class="form-label">Student Name</label>
+                    <InputText @bind-Value="HomeWork.StudentName" class="form-control" placeholder="Student Name" />
+                    <ValidationMessage For="@(() => HomeWork.StudentName)" />
+                </div>
+
+                <hr />
+
+                <div class="form-group">
+                    <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
+                    <InputNumber @bind-Value="HomeWork.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
+                    <ValidationMessage For="@(() => HomeWork.StudentName)" />
+                </div>
+
+                <hr />
+            }
+            @if (!ShowHWInput)
+            {
+                <h5>Enter the next subject No: @KounterNumbOfSubjects</h5>
+
+                Score.SubjectName = "";
+
+            }
             <div class="form-group">
-                <label for="SchoolIdNumber" class="form-label">School ID</label>
-                <InputText @bind-Value="HomeWork.SchoolIdNumber" class="form-control" placeholder="School ID" />
-                <ValidationMessage For="@(() => HomeWork.SchoolIdNumber)" />
+                <label for="NumberOfSubjects" class="form-label">Number of Home Works</label>
+                <InputNumber @bind-Value="HomeWork.NumberOfHomeWorks" class="form-control" placeholder="Number of Subjects" />
+                <ValidationMessage For="@(() => HomeWork.NumberOfHomeWorks)" />
             </div>
-            <div class="form-group">
-                <label for="StudentName" class="form-label">Student Name</label>
-                <InputText @bind-Value="HomeWork.StudentName" class="form-control" placeholder="Student Name" />
-                <ValidationMessage For="@(() => HomeWork.StudentName)" />
-            </div>
-            <div class="form-group">
-                <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
-                <InputNumber @bind-Value="HomeWork.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
-                <ValidationMessage For="@(() => HomeWork.StudentName)" />
-            </div>
+
+            <hr />
+
+        </EditForm>
+
+            @if (KounterNumbOfSubjects == 1)
+            {
+                SchoolID = HomeWork.SchoolIdNumber;
+                StudentName = HomeWork.StudentName;
+                NumbOfSujects = HomeWork.NumberOfSubjects;
+
+
+                NumbOfSujects = HomeWork.NumberOfSubjects; //----> The counting starts from 0 to N - 1;
+
+                NumbTempSubject = HomeWork.NumberOfSubjects;
+
+                //if (NumbTemp == 0) HideButtons = true;
+            }
+
         }
-        @if (!ShowHWInput)
+    </div>
+        @if (ShowComponent)
         {
-            <h5>Enter the next subject No: @KounterNumbOfSubjects</h5>
-            
-            Score.SubjectName = "";
+            if (ShowHWCounter)
+            {
+                <h5>Enter Home Work No: @KounterNumbOfHomeWork</h5>
+            }
+
+            <HomeWorkForm Score="Score" Enter="@(() => Proceed(Score))" Finish="Back" HideButton="HideButtons" CreateHW="@(() => CreateHomeWork(Score))"
+                          CancelMethod="Cancel" UpsertButton="Create" CancelButton="Cancel" />
+
+            HomeWork.SchoolIdNumber = SchoolID;
+            HomeWork.StudentName = StudentName;
+            HomeWork.NumberOfSubjects = NumbOfSujects;
+            NumbOfHomeWorks = HomeWork.NumberOfHomeWorks;
+            if (KounterNumbOfSubjects < NumbOfSujects) NumbTempHomeWork = HomeWork.NumberOfHomeWorks;
+            else NumbTempHomeWork = HomeWork.NumberOfHomeWorks - 1; //---> To remove -1
 
         }
-        <div class="form-group">
-            <label for="NumberOfSubjects" class="form-label">Number of Home Works</label>
-            <InputNumber @bind-Value="HomeWork.NumberOfHomeWorks" class="form-control" placeholder="Number of Subjects" />
-            <ValidationMessage For="@(() => HomeWork.NumberOfHomeWorks)" />
-        </div>
 
-    </EditForm>
-
-    @if (KounterNumbOfSubjects == 1)
-    {
-        SchoolID = HomeWork.SchoolIdNumber;
-        StudentName = HomeWork.StudentName;
-        NumbOfSujects = HomeWork.NumberOfSubjects;
-
-
-        NumbOfSujects = HomeWork.NumberOfSubjects; //----> The counting starts from 0 to N - 1;
-
-        NumbTempSubject = HomeWork.NumberOfSubjects;
-
-        //if (NumbTemp == 0) HideButtons = true;
-    }
-
-}
-
-@if (ShowComponent)
-{
-    if (ShowHWCounter)
-    {
-        <h5>Enter Home Work No: @KounterNumbOfHomeWork</h5>
-    }
-
-    <HomeWorkForm Score="Score" Enter="@(() => Proceed(Score))" Finish="Back" HideButton="HideButtons" CreateHW="@(() => CreateHomeWork(Score))"
-                  CancelMethod="Cancel" UpsertButton="Create" CancelButton="Cancel" />
-
-    HomeWork.SchoolIdNumber = SchoolID;
-    HomeWork.StudentName = StudentName;
-    HomeWork.NumberOfSubjects = NumbOfSujects;
-    NumbOfHomeWorks = HomeWork.NumberOfHomeWorks;
-    if (KounterNumbOfSubjects < NumbOfSujects) NumbTempHomeWork = HomeWork.NumberOfHomeWorks;
-    else NumbTempHomeWork = HomeWork.NumberOfHomeWorks - 1; //---> To remove -1
-
-}
-
+</div>

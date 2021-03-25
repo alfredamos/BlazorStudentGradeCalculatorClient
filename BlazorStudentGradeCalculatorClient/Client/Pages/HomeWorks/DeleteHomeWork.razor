@@ -1,9 +1,9 @@
 ﻿@page "/deleteHomeWork/{Id:int}"
 @inherits DeleteHomeWorkBase
 
-<div class="border">
-    <div class="card-header">
-        <h1 class="text-center">Delete Home Work Details of @HomeWork.StudentName</h1>
+<div class="border" style="width: 50%; font-weight: bold">
+    <div class="card-header text-center">
+        <h4 class="text-center"><strong>Delete Home Work Details of @HomeWork.StudentName</strong></h4>
     </div>
     <div class="card-body">
         <table class="table table-striped table-bordered">
@@ -41,10 +41,10 @@
         </table>
     </div>
     <div class="card-footer">
-        <button type="button" style="font-weight: bold" class="btn btn-warning btn-block" @onclick="Cancel">
-            Cancel
+        <button type="button" style="font-weight: bold" class="btn btn-primary btn-block" @onclick="Cancel">
+            Back to List
             <i class="fas fa-angle-right right"></i>
-        </button>
+        </button>       
     </div>
 </div>
 

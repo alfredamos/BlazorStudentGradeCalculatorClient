@@ -31,6 +31,7 @@ namespace BlazorStudentGradeCalculatorClient.Server.Data
             base.OnModelCreating(builder);
         }
 
+        public DbSet<CourseCredit> CourseCredits { get; set; }
         public DbSet<CourseDetail> CourseWeights { get; set; }
         public DbSet<Examm> Examms { get; set; }
         public DbSet<HomeWork> HomeWorks { get; set; }

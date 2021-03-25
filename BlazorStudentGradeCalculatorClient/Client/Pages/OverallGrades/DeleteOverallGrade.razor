@@ -1,0 +1,44 @@
+﻿@page "/deleteOverallGrade/{Id:int}"
+@inherits DeleteOverallGradeBase
+
+
+<div class="border" style="width:50%; font-weight: bold">
+    <div class="card-header text-center">
+        <h4><strong>Delete Overall Grade Score of @OverallGrade.StudentName</strong></h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-bordered">
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold">Student Id    : @OverallGrade.SchoolIdNumber</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">Student Name  : @OverallGrade.StudentName</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">Subject Name  : @OverallGrade.SubjectName</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">Subject Score : @OverallGrade.SubjectScore</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">Grade         : @OverallGrade.SubjectScoreInLetter</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-danger btn-block" @onclick="DeleteClick" style="font-weight: bold">
+            <i class="oi oi-delete">Delete</i>
+        </button>
+        <a href="/listOverallGrades" class="btn btn-primary btn-block" style="font-weight: bold">
+            Back to OverallGrade List
+        </a>
+        <a class="btn btn-primary btn-block" href="@($"/studentList")" style="font-weight: bold">
+            Back to Student Overall Score List
+        </a>
+    </div>
+</div>
+
+<ConfirmDelete @ref="DeleteConfirmation" ConfirmationChanged="DeleteOverallGrade" ConfirmationMessage="@($"Are you sure you want to delete {OverallGrade.StudentName}'s overall' score?")"
+               ConfirmationTitle="Overall Grade Score Delete Confirmation" />

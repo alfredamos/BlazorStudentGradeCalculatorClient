@@ -2,33 +2,45 @@
 @inherits EditMidtermBase
 
 
-<h1 class="card-header">Edit MidTerm Score</h1>
-
-<hr />
-
-<EditForm Model="MidTerm">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <div class="form-group">
-        <label for="SchoolIdNumber" class="form-label">School ID</label>
-        <InputText @bind-Value="MidTerm.SchoolIdNumber" class="form-control" placeholder="School ID" />
-        <ValidationMessage For="@(() => MidTerm.SchoolIdNumber)" />
-    </div>
-    <div class="form-group">
-        <label for="StudentName" class="form-label">Student Name</label>
-        <InputText @bind-Value="MidTerm.StudentName" class="form-control" placeholder="Student Name" />
-        <ValidationMessage For="@(() => MidTerm.StudentName)" />
-    </div>
-    <div class="form-group">
-        <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
-        <InputNumber @bind-Value="MidTerm.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
-        <ValidationMessage For="@(() => MidTerm.StudentName)" />
+<div class="border" style="width: 50%">
+    <div class="card-header text-center">
+        <h5><strong>Edit MidTerm Score</strong></h5>
     </div>
 
-</EditForm>
+    <div class="card-body">
 
+        <EditForm Model="MidTerm">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
+            <div class="form-group">
+                <label for="SchoolIdNumber" class="form-label">School ID</label>
+                <InputText @bind-Value="MidTerm.SchoolIdNumber" class="form-control" placeholder="School ID" />
+                <ValidationMessage For="@(() => MidTerm.SchoolIdNumber)" />
+            </div>
 
-<MidTermForm MidTerm="MidTerm" HideButton="HideButtons" UpsertExamm="UpdateMidTerm"
-           CancelMethod="Cancel" UpsertButton="Save" CancelButton="Cancel" />
+            <hr />
+
+            <div class="form-group">
+                <label for="StudentName" class="form-label">Student Name</label>
+                <InputText @bind-Value="MidTerm.StudentName" class="form-control" placeholder="Student Name" />
+                <ValidationMessage For="@(() => MidTerm.StudentName)" />
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
+                <InputNumber @bind-Value="MidTerm.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
+                <ValidationMessage For="@(() => MidTerm.StudentName)" />
+            </div>
+
+        </EditForm>
+
+    </div>
+
+    <hr />
+
+        <MidTermForm MidTerm="MidTerm" HideButton="HideButtons" UpsertMidTerm="UpdateMidTerm"
+                     CancelMethod="Cancel" UpsertButton="Save" CancelButton="Cancel" />
+</div>

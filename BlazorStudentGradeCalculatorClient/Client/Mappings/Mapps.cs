@@ -12,6 +12,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.Mappings
     {
         public Mapps()
         {
+            CreateMap<CourseCredit, CourseCreditView>().ReverseMap();
             CreateMap<CourseDetail, CourseDetailView>().ReverseMap();
             CreateMap<Examm, ExammView>().ReverseMap();
             CreateMap<HomeWork, HomeWorkView>().ReverseMap();

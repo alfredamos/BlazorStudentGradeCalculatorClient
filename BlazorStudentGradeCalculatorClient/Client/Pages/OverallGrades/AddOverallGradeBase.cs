@@ -63,6 +63,12 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.OverallGrades
 
         public List<MidTermView> MidTerms { get; set; } = new List<MidTermView>();
 
+        private const double ExammWeight = 0.35;
+
+        private const double MidTermWeight = 0.35;
+
+        private const double HomeWorkWeight = 0.30;
+
         protected async Task CreateOverallGrade()
         {
             await StudentOverallGrade();
@@ -104,14 +110,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.Pages.OverallGrades
                 HomeWork = HomeWorks.FirstOrDefault(x => x.SubjectName == item.SubjectName);
                 MidTerm = MidTerms.FirstOrDefault(x => x.SubjectName == item.SubjectName);
 
-                Console.WriteLine("++++++++++++++++++++++++++++++++++++");
-                Console.WriteLine("Subject Name : " + item.SubjectName);
-                Console.WriteLine("Examm Score " + item.SubjectScore);
-                Console.WriteLine("Home Work Score " + HomeWork.SubjectScore);
-                Console.WriteLine("MidTerm Score " + MidTerm.SubjectScore);
-                Console.WriteLine("++++++++++++++++++++++++++++++++++++");
-
-                OverallGrade.SubjectScore = (HomeWork.SubjectScore + MidTerm.SubjectScore + item.SubjectScore) / 3;
+                OverallGrade.SubjectScore = (HomeWork.SubjectScore * HomeWorkWeight) + (MidTerm.SubjectScore * MidTermWeight) + (item.SubjectScore * ExammWeight);
 
                 OverallGrade.SubjectScoreInLetter = Utility.GradeFetcher(OverallGrade.SubjectScore);
 

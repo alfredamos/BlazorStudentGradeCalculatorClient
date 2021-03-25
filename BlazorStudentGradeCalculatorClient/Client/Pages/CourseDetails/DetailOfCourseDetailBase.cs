@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlazorStudentGradeCalculatorClient.Client.Pages.CourseDetails
 {
-    public class DetailOfCourseDetailBase : ComponentBase
+    public class DetailOfCourseCreditBase : ComponentBase
     {
         [Inject]
         public ICourseDetailService CourseDetailService { get; set; }

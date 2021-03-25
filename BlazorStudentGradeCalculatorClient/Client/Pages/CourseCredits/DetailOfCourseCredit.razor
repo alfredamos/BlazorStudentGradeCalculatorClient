@@ -1,0 +1,31 @@
+﻿@page "/detailCourseCredit/{Id:int}"
+@inherits DetailOfCourseCreditBase
+
+<div class="border" style="width:50%">
+    <div class="card-header">
+        <h5>Delete Course Credit</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td><a href="/listCourseCredits">Subject : @CourseCredit.GradeLetter</a></td>
+                </tr>
+                <tr>
+                    <td><a href="/listCourseCredits">Weight : @CourseCredit.GradeCredit</a></td>
+                </tr>                      
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-warning btn-block" href="@($"/editCourseCredit/{CourseCredit.CourseCreditID}")" style="font-weight: bold">
+            <i class="oi oi-pencil">Edit</i>
+        </a>
+        <a class="btn btn-danger btn-block" href="@($"/deleteCourseCredit/{CourseCredit.CourseCreditID}")" style="font-weight: bold">
+            <i class="oi oi-delete">Delete</i>
+        </a>
+        <a class="btn btn-primary btn-block" href="@($"/listCourseCredits")" style="font-weight: bold">
+            Back to List
+        </a>
+    </div>
+</div>

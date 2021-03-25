@@ -12,6 +12,7 @@ namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
         [Required]
         public string SubjectName { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         public double SubjectScore { get; set; }
         public string SubjectScoreInLetter { get; set; }
 

@@ -10,11 +10,11 @@ namespace BlazorStudentGradeCalculatorClient.Client.ViewModels
     {
         public int StudentID { get; set; }
         [Required]
-        public string SchoolIdNumber { get; set; }
-        [Required]
-        public string StudentName { get; set; }
-        [Required]
+        public string SchoolIdNumber { get; set; }        
+        public string StudentName { get; set; }        
         public int NumberOfSubjects { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         public double GPA { get; set; }
         public List<ExammView> Examms { get; set; }
         public List<HomeWorkView> HomeWorks { get; set; }

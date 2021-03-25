@@ -2,52 +2,63 @@
 @inherits AddExammsBase
 
 
-    <h1 class="card-header">Add Examm Score</h1>
+<div class="border" style="width: 50%">
+    <div class="card-header text-center">
+        <h5><strong>Add Examm Score</strong></h5>
+    </div>
 
-<hr/>
+    <div class="card-body">
 
-@if (ShowMainForm)
-{
-    <EditForm Model="Examm">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+        @if (ShowMainForm)
+        {
+            <EditForm Model="Examm">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
-        <div class="form-group">
-            <label for="SchoolIdNumber" class="form-label">School ID</label>
-            <InputText @bind-Value="Examm.SchoolIdNumber" class="form-control" placeholder="School ID" />
-            <ValidationMessage For="@(() => Examm.SchoolIdNumber)" />
-        </div>
-        <div class="form-group">
-            <label for="StudentName" class="form-label">Student Name</label>
-            <InputText @bind-Value="Examm.StudentName" class="form-control" placeholder="Student Name" />
-            <ValidationMessage For="@(() => Examm.StudentName)" />
-        </div>
-        <div class="form-group">
-            <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
-            <InputNumber @bind-Value="Examm.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
-            <ValidationMessage For="@(() => Examm.StudentName)" />
-        </div>
+                <div class="form-group">
+                    <label for="SchoolIdNumber" class="form-label">School ID</label>
+                    <InputText @bind-Value="Examm.SchoolIdNumber" class="form-control" placeholder="School ID" />
+                    <ValidationMessage For="@(() => Examm.SchoolIdNumber)" />
+                </div>
 
-    </EditForm>
+                <hr />
 
-    SchoolID = Examm.SchoolIdNumber;
-    StudentName = Examm.StudentName;
-    NumbOfSujects = Examm.NumberOfSubjects;
+                <div class="form-group">
+                    <label for="StudentName" class="form-label">Student Name</label>
+                    <InputText @bind-Value="Examm.StudentName" class="form-control" placeholder="Student Name" />
+                    <ValidationMessage For="@(() => Examm.StudentName)" />
+                </div>
 
-    NumbTemp = Examm.NumberOfSubjects - 1; //----> The counting starts from 0 to N - 1;
+                <div class="form-group">
+                    <label for="NumberOfSubjects" class="form-label">Number of Subjects</label>
+                    <InputNumber @bind-Value="Examm.NumberOfSubjects" class="form-control" placeholder="Number of Subjects" />
+                    <ValidationMessage For="@(() => Examm.StudentName)" />
+                </div>
 
-    if (NumbTemp == 0) HideButtons = true;
+            </EditForm>
+    
 
-}
+            SchoolID = Examm.SchoolIdNumber;
+            StudentName = Examm.StudentName;
+            NumbOfSujects = Examm.NumberOfSubjects;
 
-@if (ShowComponent)
-{ 
-    <ExammForm Examm="Examm" Proceed="Proceed" Finish="Back" HideButton="HideButtons" UpsertExamm="CreateExamms"
-               CancelMethod="Cancel" UpsertButton="Create" CancelButton="Cancel" />
+            NumbTemp = Examm.NumberOfSubjects - 1; //----> The counting starts from 0 to N - 1;
 
-    Examm.SchoolIdNumber = SchoolID;
-    Examm.StudentName = StudentName;
-    Examm.NumberOfSubjects = NumbOfSujects;
+            if (NumbTemp == 0) HideButtons = true;
+
+        }
+</div>
+        @if (ShowComponent)
+        {
+           
+            <ExammForm Examm="Examm" Proceed="Proceed" Finish="Back" HideButton="HideButtons" UpsertExamm="CreateExamms"
+                       CancelMethod="Cancel" UpsertButton="Create" CancelButton="Cancel" />
+
+            Examm.SchoolIdNumber = SchoolID;
+            Examm.StudentName = StudentName;
+            Examm.NumberOfSubjects = NumbOfSujects;
+
+        }
+
    
-}
-
+</div>

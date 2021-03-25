@@ -1,5 +1,5 @@
 ﻿@page "/detailCourseDetail/{Id:int}"
-@inherits DetailOfCourseDetailBase
+@inherits DetailOfCourseCreditBase
 
 <div class="border" style="width:50%">
     <div class="card-header">
@@ -30,6 +30,9 @@
         </a>
         <a class="btn btn-danger btn-block" href="@($"/deleteCourseDetail/{CourseDetail.CourseDetailID}")" style="font-weight: bold">
             <i class="oi oi-delete">Delete</i>
+        </a>
+        <a class="btn btn-primary btn-block" href="@($"/listCourseDetails")" style="font-weight: bold">
+            Back to List
         </a>
     </div>
 </div>
