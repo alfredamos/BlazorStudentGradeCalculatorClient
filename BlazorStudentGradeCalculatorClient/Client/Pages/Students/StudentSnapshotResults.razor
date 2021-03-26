@@ -1,0 +1,134 @@
+﻿@page "/studentSnapshotResults"
+@inherits StudentSnapShotResultsBase
+
+<div class="border">
+
+    <div class="card-header text-center">
+        <h1>List of Students Snapshot Results</h1>
+    </div>
+
+    @foreach (var itema in Students)
+    {
+        if (itema.SchoolIdNumber != StudentTemp.SchoolIdNumber)
+        {
+            @* overallGrades = Students.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();*@
+            var overallGrades = itema.OverallGrades.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+            var examms = itema.Examms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+            var midTerms = itema.MidTerms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+            var homeWorks = itema.HomeWorks.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+
+            <div class="card-body">
+                <table class="table table-bordered">
+
+                    <thead>
+                        <tr>
+
+                            <th><a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">School ID          : @overallGrades[0].SchoolIdNumber</a></th>
+                            <th></th>
+                            <th><a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">Student Name       : @overallGrades[0].StudentName</a></th>
+                            <th></th>
+                            <th>
+                                <a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">
+                                    Number of Subjects : @overallGrades[0].NumberOfSubjects
+                                </a>
+                            </th>
+                            <th></th>
+                            <th>
+                                <a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">
+                                    Cumulative GPA     : @String.Format("{0:N2}", itema.GPA)
+                                </a>
+                            </th>
+
+
+                        </tr>
+                        <tr>
+                            <th class="text-center">Subject</th>
+                            <th class="text-center">Overall Grade</th>
+                            <th class="text-center">Examm Grade</th>
+                            <th class="text-center">MidTerm Grade</th>
+                            <th class="text-center">Average Home Work Grade</th>
+                            <th class="text-center">All Home Works</th>
+                            <th class="text-center">Action</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in overallGrades)
+                        {
+                            var examm = examms.FirstOrDefault(x => x.SubjectName == item.SubjectName);
+                            var midTerm = midTerms.FirstOrDefault(x => x.SubjectName == item.SubjectName);
+                            var homeWork = homeWorks.FirstOrDefault(x => x.SubjectName == item.SubjectName);
+                        <tr>
+                            <td>
+                                <strong>
+                                    @item.SubjectName
+                                </strong>
+                            </td>                            
+                            <td>
+                                <strong>
+                                    @String.Format("{0:N1}", item.SubjectScore)
+                                    : @item.SubjectScoreInLetter
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @String.Format("{0:N1}", examm.SubjectScore)
+                                    : @examm.SubjectScoreInLetter
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @String.Format("{0:N1}", midTerm.SubjectScore)
+                                    : @midTerm.SubjectScoreInLetter
+                                </strong>
+                            </td>
+                            <td>
+                                <strong>
+                                    @String.Format("{0:N1}", homeWork.SubjectScore)
+                                    : @homeWork.SubjectScoreInLetter
+                                </strong>
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach (var hWorkScore in homeWork.Scores)
+                                    {
+                                        <li>
+                                            <strong>
+                                                @String.Format("{0:N1}", hWorkScore.SubjectScore)
+                                                : @hWorkScore.SubjectScoreInLetter
+                                            </strong>
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-block" href="@($"/overallGradeDetail/{item.SchoolIdNumber}")" style="font-weight: bold">
+                                    <i class="oi oi-book">View</i>
+                                </a>                                
+                            </td>
+                        </tr>
+                           
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="card-footer">                
+                <a class="btn btn-primary btn-block" href="@($"/overallGradeDetail/{itema.SchoolIdNumber}")" style="font-weight: bold">
+                   @itema.StudentName's Detail Scores
+                </a>               
+            </div>
+
+        }
+        StudentTemp = itema;
+    }
+
+</div>
+
+<br />
+
+<div class="card-footer">
+    <a href="addStudent" class="btn btn-outline-dark btn-block" style="font-weight: bold">Get Student Grade</a>
+</div>
+<br />
+<br />

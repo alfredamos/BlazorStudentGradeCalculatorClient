@@ -66,14 +66,16 @@ namespace BlazorStudentGradeCalculatorClient.Server.SQLFiles
 
         public async Task<IEnumerable<Student>> GetAll()
         {         
-            return await _context.Students.Include(st => st.Examms).Include(st => st.HomeWorks)
+            return await _context.Students.Include(st => st.Examms)
+                        .Include(st => st.HomeWorks).ThenInclude(x => x.Scores)
                         .Include(st => st.MidTerms).Include(x => x.OverallGrades).ToListAsync();
             
         }
 
         public async Task<Student> GetById(int id)
         {
-            return await _context.Students.Include(st => st.Examms).Include(st => st.HomeWorks)
+            return await _context.Students.Include(st => st.Examms)
+                        .Include(st => st.HomeWorks).ThenInclude(x => x.Scores)
                         .Include(st => st.MidTerms).Include(x => x.OverallGrades)
                          .FirstOrDefaultAsync(st => st.StudentID == id);
         }
