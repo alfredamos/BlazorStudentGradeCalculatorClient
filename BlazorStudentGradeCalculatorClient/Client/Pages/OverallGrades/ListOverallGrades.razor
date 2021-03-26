@@ -40,6 +40,9 @@
                                 <td>@String.Format("{0:N1}", item.SubjectScore)</td>
                                 <td>@item.SubjectScoreInLetter</td>
                                 <td>
+                                    <a class="btn btn-primary" href="@($"/overallGradeDetail/{item.SchoolIdNumber}")" style="font-weight: bold">
+                                        <i class="oi oi-book">View</i>
+                                    </a>
                                     <a class="btn btn-danger" href="@($"/deleteOverallGrade/{item.OverallGradeID}")" style="font-weight: bold">
                                         <i class="oi oi-delete">Delete</i>
                                     </a>

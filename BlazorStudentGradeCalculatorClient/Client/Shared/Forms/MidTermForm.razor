@@ -29,14 +29,14 @@
             {
                 <div class="form-group">
                     <button type="button" class="btn btn-outline-info btn-block" @onclick="Proceed" style="font-weight: bold">Proceed</button>
-                    <button type="button" class="btn btn-outline-info btn-block" @onclick="Finish" style="font-weight: bold">Cancel</button>
+                    <button type="button" class="btn btn-outline-dark btn-block" @onclick="Finish" style="font-weight: bold">Cancel</button>
                 </div>
             }
             @if (HideButton)
             {
                 <div class="form-group">
                     <button type="button" class="btn btn-outline-info btn-block" @onclick="UpsertMidTerm" style="font-weight: bold">@UpsertButton</button>
-                    <button type="button" class="btn btn-outline-info btn-block" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
+                    <button type="button" class="btn btn-outline-dark btn-block" @onclick="CancelMethod" style="font-weight: bold">@CancelButton</button>
                 </div>
             }
 

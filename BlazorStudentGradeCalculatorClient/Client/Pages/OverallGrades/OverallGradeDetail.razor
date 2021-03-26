@@ -35,7 +35,7 @@
                     }
                     <tr>
                         <td>@item.SubjectName</td>
-                        <td>@item.SubjectScore</td>
+                        <td>@String.Format("{0:N1}", item.SubjectScore)</td>
                         <td>@item.SubjectScoreInLetter</td>
                         <td>
                             <a class="btn btn-danger" href="@($"/deleteOverallGrade/{item.OverallGradeID}")" style="font-weight: bold">

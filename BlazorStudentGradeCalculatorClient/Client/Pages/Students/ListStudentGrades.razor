@@ -1,0 +1,175 @@
+﻿@page "/listStudentGrades"
+@inherits ListStudentGradesBase
+
+<div class="border">
+
+    <div class="card-header text-center">
+        <h1>List of Students Overall Scores</h1>
+    </div>
+
+    @foreach (var itema in Students)
+    {
+        if (itema.SchoolIdNumber != StudentTemp.SchoolIdNumber)
+        {
+            @* overallGrades = Students.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();*@
+            var overallGrades = itema.OverallGrades.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+            var examms = itema.Examms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+            var midTerms = itema.MidTerms.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+            var homeWorks = itema.HomeWorks.Where(x => x.SchoolIdNumber == itema.SchoolIdNumber).ToList();
+
+           <div class="card-body">
+               <table class="table table-bordered">
+
+                   <thead>
+                       <tr>
+                           <th><a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">School ID          : @overallGrades[0].SchoolIdNumber</a></th>
+                           <th><a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">Student Name       : @overallGrades[0].StudentName</a></th>
+                           <th>
+                               <a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">
+                                   Number of Subjects : @overallGrades[0].NumberOfSubjects
+                               </a>
+                           </th>
+
+
+                           <th>
+                               <a href="@($"/overallGradeDetail/{overallGrades[0].SchoolIdNumber}")" style="font-weight: bold">
+                                   Cumulative GPA     : @String.Format("{0:N2}", itema.GPA)
+                               </a>
+                           </th>
+                       </tr>
+                       <tr>
+                           <th>Subject</th>
+                           <th>Overall Score</th>
+                           <th>Overall Grade</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+
+                       @foreach (var item in overallGrades)
+                       {
+                           <tr>
+                               <td>@item.SubjectName</td>
+                               <td>@String.Format("{0:N1}", item.SubjectScore)</td>
+                               <td> @item.SubjectScoreInLetter</td>
+                               <td>
+                                   <a class="btn btn-primary" href="@($"/overallGradeDetail/{item.SchoolIdNumber}")" style="font-weight: bold">
+                                       <i class="oi oi-book">View</i>
+                                   </a>
+                                   <a class="btn btn-danger" href="@($"/deleteOverallGrade/{item.OverallGradeID}")" style="font-weight: bold">
+                                       <i class="oi oi-delete">Delete</i>
+                                   </a>
+                               </td>
+
+                           </tr>
+                       }
+                   </tbody>
+
+                   <thead>
+                       <tr>
+                           <th>Subject</th>
+                           <th>Examms Score</th>
+                           <th>Examms Grade</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+
+                       @foreach (var item in examms)
+                       {
+                           <tr>
+                               <td>@item.SubjectName</td>
+                               <td>@String.Format("{0:N1}", item.SubjectScore)</td>
+                               <td>@item.SubjectScoreInLetter</td>
+                               <td>
+                                   <a class="btn btn-warning" href="@($"/editExamm/{item.ExammID}")" style="font-weight: bold">
+                                       <i class="oi oi-pencil">Edit</i>
+                                   </a>
+                                   <a class="btn btn-danger" href="@($"/deleteExamm/{item.ExammID}")" style="font-weight: bold">
+                                       <i class="oi oi-delete">Delete</i>
+                                   </a>
+                               </td>
+
+                           </tr>
+                       }
+                   </tbody>
+
+                   <thead>
+                       <tr>
+                           <th>Subject</th>
+                           <th>MidTerms Score</th>
+                           <th>MidTerms Grade</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+
+                       @foreach (var item in midTerms)
+                       {
+                           <tr>
+                               <td>@item.SubjectName</td>
+                               <td>@String.Format("{0:N1}", item.SubjectScore)</td>
+                               <td>@item.SubjectScoreInLetter</td>
+                               <td>
+                                   <a class="btn btn-warning" href="@($"/editMidterm/{item.MidTermID}")" style="font-weight: bold">
+                                       <i class="oi oi-pencil">Edit</i>
+                                   </a>
+                                   <a class="btn btn-danger" href="@($"/deleteMidterm/{item.MidTermID}")" style="font-weight: bold">
+                                       <i class="oi oi-delete">Delete</i>
+                                   </a>
+                               </td>
+
+                           </tr>
+                       }
+                   </tbody>
+
+                   <thead>
+                       <tr>
+                           <th>Subject</th>
+                           <th>Home Work Score</th>
+                           <th>Home Work Grade</th>
+                           <th>Action</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+
+                       @foreach (var item in homeWorks)
+                       {
+                           <tr>
+                               <td>@item.SubjectName</td>
+                               <td>@String.Format("{0:N1}", item.SubjectScore)</td>
+                               <td>@item.SubjectScoreInLetter</td>
+                               <td>
+                                   <a class="btn btn-warning" href="@($"/edithomeWork/{item.HomeWorkID}")" style="font-weight: bold">
+                                       <i class="oi oi-pencil">Edit</i>
+                                   </a>
+                                   <a class="btn btn-danger" href="@($"/deleteHomeWork/{item.HomeWorkID}")" style="font-weight: bold">
+                                       <i class="oi oi-delete">Delete</i>
+                                   </a>
+                               </td>
+
+                           </tr>
+                       }
+                   </tbody>
+
+               </table>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary btn-block" href="@($"/overallGradeDetail/{itema.SchoolIdNumber}")" style="font-weight: bold">
+                    @itema.StudentName's Detail Scores
+                </a>
+            </div>
+
+        }
+        StudentTemp = itema;
+    }
+
+</div>
+
+<br />
+
+<div class="card-footer">
+    <a href="addStudent" class="btn btn-outline-dark btn-block" style="font-weight: bold">Get Student Grade</a>
+</div>
+<br />
+<br />
